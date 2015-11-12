@@ -22,7 +22,7 @@ The following **additional** features might implemented if time allows:
 * [ ] Driving time is calculated and displayed next to job location
 * [ ] Fieldworker can update job price after checking details onsite
 * [ ] Fieldworker receives notifications if a new job is assigned to him/her
-* [ ] Fieldworker can view all apointments(Historial, Upcoming, and Todays) in a nice calendar view
+* [ ] Fieldworker can view all appointments (Historial, Upcoming, and Todays) in a nice calendar view
 
 ## Video Walkthrough
 
