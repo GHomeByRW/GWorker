@@ -11,14 +11,15 @@ The following functionality will be completed:
 
 * [ ]	Fieldworker can **sign in to GWorker** using OAuth login
 * [ ]	Fieldworker can **view today's scheduled jobs**
-  * [ ] Each job is displayed arrival time, current status, price,
-  * [ ] Job location is displayed in an embedded map
+  * [ ] Each job is displayed arrival time, current status, price
+  * [ ] Job location is displayed in a map
 * [ ] Fieldworker can **view and update their profile**
   * [ ] Fieldworker can view their star ratings
   * [ ] Fieldworker can view and edit name, phone number, email
   * [ ] Fieldworker can upload a profile picture
 
 The following **additional** features might implemented if time allows:
+* [ ] Fieldworker location is displayed in the map
 * [ ] Driving time is calculated and displayed next to job location
 * [ ] Fieldworker can update job price after checking details onsite
 * [ ] Fieldworker receives notifications if a new job is assigned to him/her
