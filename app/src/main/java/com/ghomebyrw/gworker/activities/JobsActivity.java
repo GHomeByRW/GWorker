@@ -50,7 +50,7 @@ public class JobsActivity extends AppCompatActivity {
             @Override
             public void onFailure(Throwable t) {
 
-                Log.e("jobs", t.getMessage());
+                Log.e("jobs", t.getLocalizedMessage());
             }
         });
     }
