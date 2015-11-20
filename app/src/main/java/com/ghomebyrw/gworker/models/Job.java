@@ -85,4 +85,22 @@ public class Job {
     public String getFieldworker() {
         return fieldworker;
     }
+
+    @Override
+    public String toString() {
+        return "Job{" +
+                "serviceName='" + serviceName + '\'' +
+                ", scheduledDateAndTime=" + scheduledDateAndTime +
+                ", status=" + status +
+                ", customerId=" + customerId +
+                ", price=" + price +
+                ", location='" + location + '\'' +
+                ", timeZone='" + timeZone + '\'' +
+                ", customerPhoneNumber='" + customerPhoneNumber + '\'' +
+                ", note='" + note + '\'' +
+                ", estimatedMinutes=" + estimatedMinutes +
+                ", questionToAnswer=" + questionToAnswer +
+                ", fieldworker='" + fieldworker + '\'' +
+                '}';
+    }
 }

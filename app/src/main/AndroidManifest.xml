@@ -9,9 +9,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:name=".activities.JobsActivity"
+            android:label="@string/title_activity_jobs" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,8 +20,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.JobsActivity"
-            android:label="@string/title_activity_jobs" >
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
         </activity>
     </application>
 
