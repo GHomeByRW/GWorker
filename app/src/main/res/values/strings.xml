@@ -3,4 +3,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_jobs">JobsActivity</string>
+    <string name="sample_arrival_time">8am-10am</string>
+    <string name="arrival_time_lable">Arrival Time</string>
 </resources>
