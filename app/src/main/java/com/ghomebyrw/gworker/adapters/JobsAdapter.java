@@ -1,6 +1,8 @@
 package com.ghomebyrw.gworker.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,7 @@ public class JobsAdapter extends ArrayAdapter<Job> {
         TextView tvPrice;
         TextView tvContact;
         ImageView ivMap;
+        ImageView ivPhone;
     }
 
     public JobsAdapter(Context context, List<Job> jobs) {
@@ -74,6 +77,15 @@ public class JobsAdapter extends ArrayAdapter<Job> {
             viewHolder.tvPrice = (TextView) convertView.findViewById(R.id.tvPrice);
             viewHolder.tvContact = (TextView) convertView.findViewById(R.id.tvContact);
             viewHolder.ivMap = (ImageView) convertView.findViewById(R.id.ivMap);
+            viewHolder.ivPhone = (ImageView) convertView.findViewById(R.id.ivPhone);
+            viewHolder.ivPhone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:" + job.getCustomerPhoneNumber()));
+                    getContext().startActivity(callIntent);
+                }
+            });
 
             convertView.setTag(viewHolder);
         } else {
