@@ -15,5 +15,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/background"
         android:padding="16dp"
+        android:divider="@null"
+        android:dividerHeight="0dp"
         />
 </RelativeLayout>

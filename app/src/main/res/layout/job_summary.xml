@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:id="@+id/rlJobSummary"
-    android:background="@android:color/white"
+    android:background="@drawable/border_background"
     android:padding="24dp">
 
     <TextView
@@ -69,25 +69,32 @@
 
     <ImageView
         android:id="@+id/ivMap"
-        android:layout_height="150dp"
-        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_below="@+id/tvArrivalTimeLabel"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="24dp"
+        android:padding="0dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:src="@android:mipmap/sym_def_app_icon" />
+        android:src="@android:mipmap/sym_def_app_icon"
+        android:background="@drawable/border_map"
+        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sample_address"
         android:id="@+id/tvAddress"
-        android:layout_below="@+id/ivMap"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="10dp"
+        android:layout_below="@+id/ivMap"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:padding="10dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/border_address"
         />
 
     <View
@@ -95,7 +102,7 @@
         android:layout_height="0.2dp"
         android:id="@+id/separator1"
         android:visibility="visible"
-        android:background="@android:color/darker_gray"
+        android:background="@color/border"
         android:layout_below="@+id/tvAddress" />
 
     <TextView
@@ -115,7 +122,7 @@
         android:layout_height="0.2dp"
         android:id="@+id/separator2"
         android:visibility="visible"
-        android:background="@android:color/darker_gray"
+        android:background="@color/border"
         android:layout_below="@+id/tvPrice" />
 
     <TextView
@@ -134,7 +141,7 @@
         android:layout_height="0.2dp"
         android:id="@+id/separator3"
         android:visibility="visible"
-        android:background="@android:color/darker_gray"
+        android:background="@color/border"
         android:layout_below="@+id/tvJobDetailsLabel" />
 
     <TextView

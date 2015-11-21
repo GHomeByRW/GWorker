@@ -18,7 +18,7 @@ public class GoogleStaticMapAPI {
 
 
     public static String getStaticMapURL(Location location) {
-        String unencodedURL = new StringBuilder(BASE_URL + "zoom=15&size=560x240&markers=size:mid|color:red|")
+        String unencodedURL = new StringBuilder(BASE_URL + "zoom=15&size=600x300&markers=size:mid|color:red|")
                 .append(location.getLat())
                 .append(",")
                 .append(location.getLon())
