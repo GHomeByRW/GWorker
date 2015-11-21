@@ -36,6 +36,7 @@ public class JobsAdapter extends ArrayAdapter<Job> {
         TextView tvContact;
         ImageView ivMap;
         ImageView ivPhone;
+        ImageView ivMessage;
     }
 
     public JobsAdapter(Context context, List<Job> jobs) {
@@ -87,6 +88,17 @@ public class JobsAdapter extends ArrayAdapter<Job> {
                 }
             });
 
+            viewHolder.ivMessage = (ImageView) convertView.findViewById(R.id.ivMessage);
+            viewHolder.ivMessage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Uri smsUri = Uri.parse("tel:" + job.getCustomerPhoneNumber());
+                    Intent intent = new Intent(Intent.ACTION_VIEW, smsUri);
+                    intent.putExtra("address", job.getCustomerPhoneNumber());
+                    intent.setType("vnd.android-dir/mms-sms");
+                    getContext().startActivity(intent);
+                }
+            });
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
