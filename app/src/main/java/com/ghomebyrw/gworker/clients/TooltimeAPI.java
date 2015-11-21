@@ -14,6 +14,6 @@ import retrofit.http.Path;
  */
 public interface TooltimeAPI {
     @Headers("X-Auth-Token: admin-token")
-    @GET("field-workers/{id}/jobs")
+    @GET("fieldworkers/{id}/jobs")
     Call<List<Job>> fetchJobs(@Path("id") String id);
 }

@@ -43,14 +43,14 @@ public class JobsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Response<List<Job>> response,
                                    Retrofit retrofit) {
-
+                jobsAdapter.addAll(response.body());
                 Log.i("jobs", response.body().toString());
             }
 
             @Override
             public void onFailure(Throwable t) {
 
-                Log.e("jobs", t.getLocalizedMessage());
+                Log.e("error fetch", t.getLocalizedMessage());
             }
         });
     }

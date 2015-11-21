@@ -38,15 +38,24 @@ public class JobListDeserializer implements JsonDeserializer<List<Job>> {
                     jobJson.get("location").getAsJsonObject().get("address").getAsString(),
                     jobJson.get("timeZone").getAsString(),
                     jobJson.get("customerPhoneNumber").getAsString(),
-                    jobJson.get("note").getAsString(),
+                    getNoteNullSafe(jobJson),
                     jobJson.get("estimatedMinutes").getAsInt(),
                     null,
-                    jobJson.get("fieldworker").getAsJsonObject().get("firstName").getAsString()
+                    deserializeFieldworkerFullName(jobJson)
                     );
             jobs.add(job);
         }
 
         return jobs;
+    }
+
+    public String getNoteNullSafe(JsonObject jobObject) {
+        JsonElement note = jobObject.get("note");
+        if (note.isJsonNull()) {
+            return null;
+        } else {
+            return note.getAsString();
+        }
     }
 
     public Price deserializePrice(JsonObject jsonObject) {
@@ -67,8 +76,8 @@ public class JobListDeserializer implements JsonDeserializer<List<Job>> {
         return null;
     }
 
-    public String deserializeFieldworkerFullName(JsonObject jsonObject) {
-        JsonObject fieldworkerObject = jsonObject.get("fieldworker").getAsJsonObject();
+    public String deserializeFieldworkerFullName(JsonObject jobObject) {
+        JsonObject fieldworkerObject = jobObject.get("fieldworker").getAsJsonObject();
         return fieldworkerObject.get("firstName").getAsString() +
                 fieldworkerObject.get("lastName").getAsString();
 

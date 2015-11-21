@@ -6,4 +6,10 @@
     <string name="title_activity_jobs">JobsActivity</string>
     <string name="sample_arrival_time">8am-10am</string>
     <string name="arrival_time_lable">Arrival Time</string>
+    <string name="sample_address">600 W Chicago Ave, Chicaog, IL 60654</string>
+    <string name="price_label">Price {:formattedAmount}</string>
+    <string name="job_details_label">Job Details</string>
+    <string name="sample_contact_label">Contact {:name}</string>
+    <string name="update_price_label">UPDATE PRICING</string>
+    <string name="view_details_label">VIEW</string>
 </resources>

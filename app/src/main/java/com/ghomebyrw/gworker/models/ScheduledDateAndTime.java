@@ -25,7 +25,7 @@ public class ScheduledDateAndTime {
     }
 
     public String getTimeRange() {
-        SimpleDateFormat formatter = new SimpleDateFormat("KK:mma");
-        return formatter.format(startTime) + " - " + formatter.format(endTime);
+        SimpleDateFormat formatter = new SimpleDateFormat("Ka");
+        return formatter.format(startTime).toLowerCase() + " - " + formatter.format(endTime).toLowerCase();
     }
 }
