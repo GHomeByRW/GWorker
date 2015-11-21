@@ -6,12 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ghomebyrw.gworker.R;
+import com.ghomebyrw.gworker.clients.GoogleStaticMapAPI;
 import com.ghomebyrw.gworker.models.Job;
 import com.ghomebyrw.gworker.models.JobStatus;
+import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,13 +23,16 @@ import java.util.List;
  * Created by wewang on 11/19/15.
  */
 public class JobsAdapter extends ArrayAdapter<Job> {
-
     private static class ViewHolder {
-        TextView tvArrivalTime;
+        TextView tvStartTimeHour;
+        TextView tvStartTimeAmPm;
+        TextView tvEndTimeHour;
+        TextView tvEndTimeAmPm;
         Spinner spnJobStatus;
         TextView tvAddress;
         TextView tvPrice;
         TextView tvContact;
+        ImageView ivMap;
     }
 
     public JobsAdapter(Context context, List<Job> jobs) {
@@ -42,9 +48,11 @@ public class JobsAdapter extends ArrayAdapter<Job> {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.job_summary, parent, false);
 
-            viewHolder.tvArrivalTime = (TextView) convertView.findViewById(R.id.tvArrivalTime);
+            viewHolder.tvStartTimeHour = (TextView) convertView.findViewById(R.id.tvStartTimeHour);
+            viewHolder.tvStartTimeAmPm = (TextView) convertView.findViewById(R.id.tvStartTimeAMPM);
+            viewHolder.tvEndTimeHour = (TextView) convertView.findViewById(R.id.tvEndTimeHour);
+            viewHolder.tvEndTimeAmPm = (TextView) convertView.findViewById(R.id.tvEndTimeAMPM);
             viewHolder.spnJobStatus = (Spinner)convertView.findViewById(R.id.spnStatus);
-
 
             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter(getContext(),
                     android.R.layout.simple_spinner_dropdown_item,
@@ -65,17 +73,27 @@ public class JobsAdapter extends ArrayAdapter<Job> {
             viewHolder.tvAddress = (TextView) convertView.findViewById(R.id.tvAddress);
             viewHolder.tvPrice = (TextView) convertView.findViewById(R.id.tvPrice);
             viewHolder.tvContact = (TextView) convertView.findViewById(R.id.tvContact);
+            viewHolder.ivMap = (ImageView) convertView.findViewById(R.id.ivMap);
+
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.tvArrivalTime.setText(job.getScheduledDateAndTime().getTimeRange());
-        viewHolder.tvAddress.setText(job.getLocation());
+        viewHolder.tvStartTimeHour.setText(job.getScheduledDateAndTime().getStartTimeHour());
+        viewHolder.tvStartTimeAmPm.setText(job.getScheduledDateAndTime().getStartTimeAMPM());
+        viewHolder.tvEndTimeHour.setText(getContext().getString(R.string.sample_end_time_hour)
+                .replace("{:h}", job.getScheduledDateAndTime().getEndTimeHour()));
+        viewHolder.tvEndTimeAmPm.setText(job.getScheduledDateAndTime().getEndTimeAMPM());
+        viewHolder.tvAddress.setText(job.getLocation().getAddress());
         viewHolder.tvPrice.setText(getContext().getString(R.string.price_label)
                 .replace("{:formattedAmount}", job.getAcceptedPrice().getFormattedAmount()));
         viewHolder.tvContact.setText(getContext().getString(R.string.sample_contact_label)
                 .replace("{:name}", job.getFieldworker()));
+
+        Picasso.with(getContext()).load(GoogleStaticMapAPI.getStaticMapURL(job.getLocation())).into(viewHolder.ivMap);
+
         return convertView;
     }
+
 }

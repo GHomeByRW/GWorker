@@ -12,4 +12,7 @@
     <string name="sample_contact_label">Contact {:name}</string>
     <string name="update_price_label">UPDATE PRICING</string>
     <string name="view_details_label">VIEW</string>
+    <string name="sample_start_time_hour">8</string>
+    <string name="sample_am_pm">am</string>
+    <string name="sample_end_time_hour">- {:h}</string>
 </resources>

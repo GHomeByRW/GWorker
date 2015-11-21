@@ -12,7 +12,7 @@ public class Job {
     private JobStatus status;
     private UUID customerId;
     private Price price;
-    private String location;
+    private Location location;
     private String timeZone;
     private String customerPhoneNumber;
     private String note;
@@ -22,7 +22,7 @@ public class Job {
 
     public Job(String serviceName, ScheduledDateAndTime scheduledDateAndTime,
                JobStatus status,
-               UUID customerId, Price acceptedPrice, String location,
+               UUID customerId, Price acceptedPrice, Location location,
                String timeZone, String customerPhoneNumber, String note, int estimatedMinutes,
                HashMap<String, String> questionToAnswer, String fieldworker) {
         this.serviceName = serviceName;
@@ -59,7 +59,7 @@ public class Job {
         return price;
     }
 
-    public String getLocation() {
+    public Location getLocation() {
         return location;
     }
 

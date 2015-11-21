@@ -28,4 +28,24 @@ public class ScheduledDateAndTime {
         SimpleDateFormat formatter = new SimpleDateFormat("Ka");
         return formatter.format(startTime).toLowerCase() + " - " + formatter.format(endTime).toLowerCase();
     }
+
+    public String getStartTimeHour() {
+        SimpleDateFormat formatter = new SimpleDateFormat("K");
+        return formatter.format(startTime);
+    }
+
+    public String getStartTimeAMPM() {
+        SimpleDateFormat formatter = new SimpleDateFormat("a");
+        return formatter.format(startTime).toLowerCase();
+    }
+
+    public String getEndTimeHour() {
+        SimpleDateFormat formatter = new SimpleDateFormat("K");
+        return formatter.format(endTime);
+    }
+
+    public String getEndTimeAMPM() {
+        SimpleDateFormat formatter = new SimpleDateFormat("a");
+        return formatter.format(endTime).toLowerCase();
+    }
 }

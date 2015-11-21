@@ -2,6 +2,7 @@ package com.ghomebyrw.gworker.serializers;
 
 import com.ghomebyrw.gworker.models.Job;
 import com.ghomebyrw.gworker.models.JobStatus;
+import com.ghomebyrw.gworker.models.Location;
 import com.ghomebyrw.gworker.models.Price;
 import com.ghomebyrw.gworker.models.ScheduledDateAndTime;
 import com.google.gson.JsonDeserializationContext;
@@ -35,7 +36,7 @@ public class JobListDeserializer implements JsonDeserializer<List<Job>> {
                     JobStatus.valueOf(jobJson.get("status").getAsString()),
                     UUID.fromString(jobJson.get("customerId").getAsString()),
                     deserializePrice(jobJson.get("acceptedPrice").getAsJsonObject()),
-                    jobJson.get("location").getAsJsonObject().get("address").getAsString(),
+                    deserializeLocation(jobJson),
                     jobJson.get("timeZone").getAsString(),
                     jobJson.get("customerPhoneNumber").getAsString(),
                     getNoteNullSafe(jobJson),
@@ -78,9 +79,15 @@ public class JobListDeserializer implements JsonDeserializer<List<Job>> {
 
     public String deserializeFieldworkerFullName(JsonObject jobObject) {
         JsonObject fieldworkerObject = jobObject.get("fieldworker").getAsJsonObject();
-        return fieldworkerObject.get("firstName").getAsString() +
+        return fieldworkerObject.get("firstName").getAsString() + " " +
                 fieldworkerObject.get("lastName").getAsString();
+    }
 
 
+    public Location deserializeLocation(JsonObject jobObject) {
+        JsonObject locationObject = jobObject.get("location").getAsJsonObject();
+        return new Location(locationObject.get("address").getAsString(),
+                locationObject.get("lat").getAsDouble(),
+                locationObject.get("lon").getAsDouble());
     }
 }

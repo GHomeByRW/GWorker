@@ -2,18 +2,50 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:padding="24dp" >
+    android:id="@+id/rlJobSummary"
+    android:background="@android:color/white"
+    android:padding="24dp">
 
     <TextView
-        android:layout_width="158dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/sample_arrival_time"
-        android:id="@+id/tvArrivalTime"
+        android:text="@string/sample_start_time_hour"
+        android:textColor="@color/large_text"
+        android:id="@+id/tvStartTimeHour"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:gravity="top" />
+        android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sample_am_pm"
+        android:textColor="@color/large_text"
+        android:id="@+id/tvStartTimeAMPM"
+        android:layout_toRightOf="@+id/tvStartTimeHour"
+        android:layout_alignBottom="@+id/tvStartTimeHour"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sample_end_time_hour"
+        android:id="@+id/tvEndTimeHour"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tvStartTimeAMPM"
+        android:textSize="24sp"
+        android:textColor="@color/large_text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sample_am_pm"
+        android:textColor="@color/large_text"
+        android:id="@+id/tvEndTimeAMPM"
+        android:layout_toRightOf="@+id/tvEndTimeHour"
+        android:layout_alignBottom="@+id/tvStartTimeHour"
+        />
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,27 +56,37 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/spnStatus"
-        android:layout_toStartOf="@+id/spnStatus" />
+        android:layout_toStartOf="@+id/spnStatus"
+        android:textAlignment="gravity" />
 
     <Spinner
         android:id="@+id/spnStatus"
         style="@style/spinner_style"
         android:spinnerMode="dropdown"
-        android:layout_alignTop="@+id/tvArrivalTime"
-        android:layout_alignRight="@+id/separator1"
-        android:layout_alignEnd="@+id/separator1"
-        android:layout_toRightOf="@+id/tvArrivalTime"
-        android:layout_toEndOf="@+id/tvArrivalTime" />
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/tvStartTimeHour"
+        />
+
+    <ImageView
+        android:id="@+id/ivMap"
+        android:layout_height="150dp"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/tvArrivalTimeLabel"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@android:mipmap/sym_def_app_icon" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sample_address"
         android:id="@+id/tvAddress"
-        android:layout_below="@+id/tvArrivalTimeLabel"
+        android:layout_below="@+id/ivMap"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         />
 
@@ -110,6 +152,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/update_price_label"
+        android:textColor="@color/theme_primary"
         android:id="@+id/tvUpdatePriceLabel"
         android:layout_alignTop="@+id/tvPrice"
         android:layout_alignParentRight="true"
@@ -119,10 +162,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/view_details_label"
+        android:textColor="@color/theme_primary"
         android:id="@+id/tvViewDetailsLabel"
         android:layout_alignTop="@+id/tvJobDetailsLabel"
         android:layout_alignRight="@+id/separator2"
         android:layout_alignEnd="@+id/separator2" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivPhone"
+        android:src="@drawable/ic_phone"
+        android:layout_alignTop="@+id/tvContact"
+        android:layout_toLeftOf="@+id/ivMessage"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivMessage"
+        android:layout_alignTop="@+id/tvContact"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_message" />
 
 </RelativeLayout>
