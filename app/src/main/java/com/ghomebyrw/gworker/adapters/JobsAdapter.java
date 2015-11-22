@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ghomebyrw.gworker.R;
+import com.ghomebyrw.gworker.activities.PriceUpdateActivity;
 import com.ghomebyrw.gworker.clients.GoogleStaticMapAPI;
 import com.ghomebyrw.gworker.models.Job;
 import com.ghomebyrw.gworker.models.JobStatus;
@@ -35,6 +36,7 @@ public class JobsAdapter extends ArrayAdapter<Job> {
         TextView tvPrice;
         TextView tvContact;
         ImageView ivMap;
+        TextView tvPriceUpdate;
         ImageView ivPhone;
         ImageView ivMessage;
     }
@@ -78,6 +80,15 @@ public class JobsAdapter extends ArrayAdapter<Job> {
             viewHolder.tvPrice = (TextView) convertView.findViewById(R.id.tvPrice);
             viewHolder.tvContact = (TextView) convertView.findViewById(R.id.tvContact);
             viewHolder.ivMap = (ImageView) convertView.findViewById(R.id.ivMap);
+            viewHolder.tvPriceUpdate = (TextView) convertView.findViewById(R.id.tvUpdatePriceLabel);
+            viewHolder.tvPriceUpdate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), PriceUpdateActivity.class);
+                    intent.putExtra("price", job.getAcceptedPrice());
+                    getContext().startActivity(intent);
+                }
+            });
             viewHolder.ivPhone = (ImageView) convertView.findViewById(R.id.ivPhone);
             viewHolder.ivPhone.setOnClickListener(new View.OnClickListener() {
                 @Override

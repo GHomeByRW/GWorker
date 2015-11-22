@@ -1,37 +1,68 @@
 package com.ghomebyrw.gworker.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.ghomebyrw.gworker.utils.CurrencyHelper;
+
 /**
  * Created by wewang on 11/19/15.
  */
-public class Price {
-    private int amount;
-    private String currencyCode;
-    private String formattedAmount;
+public class Price implements Parcelable {
+    private PriceItem laborPrice;
+    private PriceItem partsPrice;
 
-    public Price(int amount, String currencyCode, String formattedAmount) {
-        this.amount = amount;
-        this.currencyCode = currencyCode;
-        this.formattedAmount = formattedAmount;
+    public Price() {
     }
 
-    public int getAmount() {
-        return amount;
+    public Price(PriceItem laborPrice, PriceItem partsPrice) {
+        this.laborPrice = laborPrice;
+        this.partsPrice = partsPrice;
     }
 
-    public String getCurrencyCode() {
-        return currencyCode;
+    public PriceItem getLaborPrice() {
+        return laborPrice;
+    }
+
+    public PriceItem getPartsPrice() {
+        return partsPrice;
     }
 
     public String getFormattedAmount() {
-        return formattedAmount;
+        return CurrencyHelper.formatCurrencyInDefaultLocale(laborPrice.getAmount() + partsPrice.getAmount());
     }
 
     @Override
     public String toString() {
         return "Price{" +
-                "amount=" + amount +
-                ", currencyCode='" + currencyCode + '\'' +
-                ", formattedAmount='" + formattedAmount + '\'' +
+                "laborPrice=" + laborPrice +
+                ", partsPrice=" + partsPrice +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.laborPrice, 0);
+        dest.writeParcelable(this.partsPrice, 0);
+    }
+
+    protected Price(Parcel in) {
+        this.laborPrice = in.readParcelable(PriceItem.class.getClassLoader());
+        this.partsPrice = in.readParcelable(PriceItem.class.getClassLoader());
+    }
+
+    public static final Creator<Price> CREATOR = new Creator<Price>() {
+        public Price createFromParcel(Parcel source) {
+            return new Price(source);
+        }
+
+        public Price[] newArray(int size) {
+            return new Price[size];
+        }
+    };
 }
