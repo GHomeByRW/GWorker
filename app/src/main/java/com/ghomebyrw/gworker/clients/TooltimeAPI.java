@@ -1,5 +1,6 @@
 package com.ghomebyrw.gworker.clients;
 
+import com.ghomebyrw.gworker.models.FieldWorker;
 import com.ghomebyrw.gworker.models.Job;
 
 import java.util.List;
@@ -9,7 +10,6 @@ import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.Headers;
 import retrofit.http.PATCH;
-import retrofit.http.POST;
 import retrofit.http.Path;
 
 /**
@@ -24,4 +24,8 @@ public interface TooltimeAPI {
     @PATCH("jobs/{id}")
     @FormUrlEncoded
     Call<Job> updateJobPrice(@Path("id") String id);
+
+    @Headers("X-Auth-Token: admin-token")
+    @GET("fieldworkers/{id}")
+    Call<FieldWorker> fetchFieldWorker(@Path("id") String id);
 }
