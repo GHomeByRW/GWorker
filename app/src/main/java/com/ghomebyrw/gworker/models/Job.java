@@ -12,7 +12,7 @@ public class Job {
     private JobStatus status;
     private UUID customerId;
     private Price price;
-    private String location;
+    private Location location;
     private String timeZone;
     private String customerPhoneNumber;
     private String note;
@@ -20,23 +20,23 @@ public class Job {
     private HashMap<String, String> questionToAnswer;
     private String fieldworker;
 
-    public Job(String serviceName, ScheduledDateAndTime scheduledDateAndTime){
-//               JobStatus status,
-//               UUID customerId, Price acceptedPrice, String location,
-//               String timeZone, String customerPhoneNumber, String note, int estimatedMinutes,
-//               HashMap<String, String> questionToAnswer, String fieldworker) {
+    public Job(String serviceName, ScheduledDateAndTime scheduledDateAndTime,
+               JobStatus status,
+               UUID customerId, Price acceptedPrice, Location location,
+               String timeZone, String customerPhoneNumber, String note, int estimatedMinutes,
+               HashMap<String, String> questionToAnswer, String fieldworker) {
         this.serviceName = serviceName;
         this.scheduledDateAndTime = scheduledDateAndTime;
-//        this.status = status;
-//        this.customerId = customerId;
-//        this.price = acceptedPrice;
-//        this.location = location;
-//        this.timeZone = timeZone;
-//        this.customerPhoneNumber = customerPhoneNumber;
-//        this.note = note;
-//        this.estimatedMinutes = estimatedMinutes;
-//        this.questionToAnswer = questionToAnswer;
-//        this.fieldworker = fieldworker;
+        this.status = status;
+        this.customerId = customerId;
+        this.price = acceptedPrice;
+        this.location = location;
+        this.timeZone = timeZone;
+        this.customerPhoneNumber = customerPhoneNumber;
+        this.note = note;
+        this.estimatedMinutes = estimatedMinutes;
+        this.questionToAnswer = questionToAnswer;
+        this.fieldworker = fieldworker;
     }
 
     public String getServiceName() {
@@ -59,7 +59,7 @@ public class Job {
         return price;
     }
 
-    public String getLocation() {
+    public Location getLocation() {
         return location;
     }
 
