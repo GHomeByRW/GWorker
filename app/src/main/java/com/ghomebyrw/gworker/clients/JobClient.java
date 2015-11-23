@@ -1,5 +1,6 @@
 package com.ghomebyrw.gworker.clients;
 
+import com.ghomebyrw.gworker.models.FieldWorker;
 import com.ghomebyrw.gworker.models.Job;
 import com.ghomebyrw.gworker.models.Price;
 import com.ghomebyrw.gworker.serializers.JobListDeserializer;
@@ -19,6 +20,8 @@ import retrofit.http.Body;
 public class JobClient {
     private static final String BASE_URL = "http://ondemand1-uat.snc1:9000/ondemand/v1/";
 
+    //TODO: reuse single instances of retrofit, service, and deserializer (assuming these objects are thread safe and meant to be reused)
+
     public void fetchJobs(String fieldworkerId, Callback<List<Job>> httpHandler) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -26,6 +29,15 @@ public class JobClient {
                 .build();
         TooltimeAPI service = retrofit.create(TooltimeAPI.class);
         service.fetchJobs(fieldworkerId).enqueue(httpHandler);
+    }
+
+    public void fetchFieldWorker(String id, Callback<FieldWorker> httpHandler) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(getDeserializer()))
+                .build();
+        TooltimeAPI service = retrofit.create(TooltimeAPI.class);
+        service.fetchFieldWorker(id).enqueue(httpHandler);
     }
 
     private Gson getDeserializer() {
