@@ -4,6 +4,7 @@ import com.ghomebyrw.gworker.models.Job;
 import com.ghomebyrw.gworker.models.JobStatus;
 import com.ghomebyrw.gworker.models.Location;
 import com.ghomebyrw.gworker.models.Price;
+import com.ghomebyrw.gworker.models.PriceItem;
 import com.ghomebyrw.gworker.models.ScheduledDateAndTime;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -60,9 +61,14 @@ public class JobListDeserializer implements JsonDeserializer<List<Job>> {
     }
 
     public Price deserializePrice(JsonObject jsonObject) {
-        return new Price(jsonObject.get("amount").getAsInt(),
+        PriceItem laborPrice = new PriceItem(jsonObject.get("amount").getAsInt()/100,
                 jsonObject.get("currencyCode").getAsString(),
                 jsonObject.get("formattedAmount").getAsString());
+        // TODO - read correct parts price once UAT is deployed with updates
+        PriceItem partsPrice = new PriceItem(jsonObject.get("amount").getAsInt()/100,
+                jsonObject.get("currencyCode").getAsString(),
+                jsonObject.get("formattedAmount").getAsString());
+        return new Price(laborPrice, partsPrice);
     }
 
     public ScheduledDateAndTime deserializeDateTime(JsonObject jsonObject) {

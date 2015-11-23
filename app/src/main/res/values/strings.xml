@@ -15,4 +15,14 @@
     <string name="sample_start_time_hour">8</string>
     <string name="sample_am_pm">am</string>
     <string name="sample_end_time_hour">- {:h}</string>
+    <string name="title_activity_price_update">PriceUpdateActivity</string>
+    <string name="title_price_update">Update Pricing</string>
+    <string name="labor_cost_label">Labor Cost</string>
+    <string name="dollar_sign">$</string>
+    <string name="parts_cost_label">Parts Cost</string>
+    <string name="parts_price_hint">Price of Part (Include taxes)</string>
+    <string name="part_name_label">Descriptive Parts Name</string>
+    <string name="sample_cost">$90.00</string>
+    <string name="total_price_label">Total Price</string>
+    <string name="update">update</string>
 </resources>

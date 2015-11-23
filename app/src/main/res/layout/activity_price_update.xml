@@ -1,0 +1,178 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.ghomebyrw.gworker.activities.PriceUpdateActivity"
+    android:id="@+id/rlUpdatePrice"
+    android:background="@color/background">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:id="@+id/rlEditPrice"
+        android:padding="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/labor_cost_label"
+            android:id="@+id/tvLabelCostLabel"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/large_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dollar_sign"
+            android:id="@+id/tvLaborCurrencySign"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tvLabelCostLabel"
+            android:layout_alignBottom="@+id/etEditLaborCost"
+            android:textSize="16sp"
+            android:gravity="center_vertical"
+            android:paddingLeft="5dp"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/etEditLaborCost"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/tvLaborCurrencySign"
+            android:layout_below="@+id/tvLabelCostLabel"
+            android:layout_alignLeft="@+id/etEditPartsCost"
+            android:layout_alignStart="@+id/etEditPartsCost" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/parts_cost_label"
+            android:id="@+id/tvPartsCostLabel"
+            android:layout_below="@+id/tvLaborCurrencySign"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/large_text" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dollar_sign"
+            android:id="@+id/tvPartsCurrencySign"
+            android:layout_below="@+id/tvPartsCostLabel"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:paddingLeft="5dp"
+            android:layout_marginBottom="27dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/etEditPartsCost"
+            android:text="@string/parts_price_hint"
+            android:layout_alignRight="@+id/etEditPartsDescription"
+            android:layout_alignEnd="@+id/etEditPartsDescription"
+            android:layout_alignBaseline="@+id/tvPartsCurrencySign"
+            android:layout_toRightOf="@+id/ivParts"
+            android:layout_toEndOf="@+id/ivParts" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivParts"
+            android:layout_below="@+id/tvPartsCurrencySign"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_parts"
+            />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/etEditPartsDescription"
+            android:text="@string/part_name_label"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@+id/ivParts"
+            android:layout_toRightOf="@+id/ivParts"
+            android:layout_toEndOf="@+id/ivParts" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:id="@+id/rlDisplayPrice"
+        android:layout_below="@+id/rlEditPrice"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/tvDisplayLaborLabel"
+            android:text="@string/labor_cost_label"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/tvDisplayLaborPrice"
+            android:text="@string/sample_cost"
+            android:layout_alignParentRight="true" />
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/tvDisplayPartsLabel"
+            android:text="@string/parts_cost_label"
+            android:layout_below="@+id/tvDisplayLaborLabel"
+            android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/tvDisplayPartsPrice"
+            android:text="@string/sample_cost"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/tvDisplayPartsLabel"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/tvDisplayTotalLabel"
+            android:text="@string/total_price_label"
+            android:layout_below="@+id/tvDisplayPartsLabel"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/theme_primary"/>
+
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/tvDisplayTotalPrice"
+            android:text="@string/sample_cost"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/tvDisplayTotalLabel"
+            android:textColor="@color/theme_primary"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update"
+            android:id="@+id/btnUpdate"
+            android:layout_below="@+id/tvDisplayTotalLabel"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:background="@color/theme_primary"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="10dp"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>
