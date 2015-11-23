@@ -52,4 +52,13 @@ public class JobClient {
 
         // TODO - update once API is deployed to UAT
     }
+
+    public void logIn(String userName, String password, Callback<Boolean> httpHandler) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(getDeserializer()))
+                .build();
+        TooltimeAPI service = retrofit.create(TooltimeAPI.class);
+        service.logIn().enqueue(httpHandler);
+    }
 }
