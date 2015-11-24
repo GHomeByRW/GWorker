@@ -33,4 +33,15 @@
     <string name="edit_information">Edit Information</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="save">Save</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="home">HOME</string>
+    <string name="by">by</string>
+    <string name="groupon">GROUPON</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="login">Log In</string>
+    <string name="terms">By signing in you agree to Groupon’s TERM OF USE and PRIVACY POLICY</string>
+    <string name="email_password_not_null">Email address and password cannot be empty!</string>
+    <string name="email_password_invalid">Email address or password not valid!</string>
+    <string name="job_fetch_failure">Failed to fetch jobs, please try again later.</string>
 </resources>

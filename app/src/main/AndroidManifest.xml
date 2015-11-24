@@ -14,10 +14,6 @@
         <activity
             android:name=".activities.JobsActivity"
             android:label="@string/title_activity_jobs" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <uses-library
@@ -41,7 +37,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.JobsActivity" />
         </activity>
-
         <activity
             android:name=".activities.AccountActivity"
             android:label="@string/account"
@@ -63,5 +58,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.AccountActivity" />
         </activity>
+        <activity
+            android:name=".activities.LoginActivity"
+            android:label="@string/title_activity_login" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
+
 </manifest>
