@@ -48,7 +48,7 @@ public class JobsActivity extends AppCompatActivity {
             public void onResponse(Response<List<Job>> response,
                                    Retrofit retrofit) {
                 jobsAdapter.addAll(response.body());
-                Log.i("jobs", response.body().toString());
+                Log.i(LOG_TAG, response.body().toString());
             }
 
             @Override

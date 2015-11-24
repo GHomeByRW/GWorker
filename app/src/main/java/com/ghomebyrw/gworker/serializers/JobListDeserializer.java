@@ -36,7 +36,7 @@ public class JobListDeserializer implements JsonDeserializer<List<Job>> {
                     deserializeDateTime(jobJson.get("scheduledDateAndTime").getAsJsonObject()),
                     JobStatus.valueOf(jobJson.get("status").getAsString()),
                     UUID.fromString(jobJson.get("customerId").getAsString()),
-                    deserializePrice(jobJson.get("acceptedPrice").getAsJsonObject()),
+                    deserializePrice(jobJson.get("estimatedLowPrice").getAsJsonObject()),
                     deserializeLocation(jobJson),
                     jobJson.get("timeZone").getAsString(),
                     jobJson.get("customerPhoneNumber").getAsString(),
@@ -84,9 +84,14 @@ public class JobListDeserializer implements JsonDeserializer<List<Job>> {
     }
 
     public String deserializeFieldworkerFullName(JsonObject jobObject) {
-        JsonObject fieldworkerObject = jobObject.get("fieldworker").getAsJsonObject();
-        return fieldworkerObject.get("firstName").getAsString() + " " +
-                fieldworkerObject.get("lastName").getAsString();
+        try {
+            JsonObject fieldworkerObject = jobObject.get("fieldworker").getAsJsonObject();
+            return fieldworkerObject.get("firstName").getAsString() + " " +
+                    fieldworkerObject.get("lastName").getAsString();
+        } catch (Exception e) {
+            // Note - looks like there is a bug in api that sometimes fieldworker names are not properly returned, we won't need to catch exceptions here once the bug is fixed.
+            return "";
+        }
     }
 
 
