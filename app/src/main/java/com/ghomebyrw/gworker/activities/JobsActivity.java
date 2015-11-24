@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.ghomebyrw.gworker.R;
 import com.ghomebyrw.gworker.adapters.JobsAdapter;
@@ -26,6 +27,8 @@ public class JobsActivity extends AppCompatActivity {
     private JobsAdapter jobsAdapter;
     private List<Job> jobs = new ArrayList<>();
     private JobClient jobClient;
+
+    private static final String LOG_TAG = JobsActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +53,9 @@ public class JobsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Throwable t) {
-
-                Log.e("error fetch", t.getLocalizedMessage());
+                Log.e(LOG_TAG, t.getLocalizedMessage());
+                Toast.makeText(JobsActivity.this, getString(R.string.job_fetch_failure),
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }

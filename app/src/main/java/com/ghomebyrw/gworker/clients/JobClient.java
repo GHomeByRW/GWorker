@@ -2,6 +2,7 @@ package com.ghomebyrw.gworker.clients;
 
 import com.ghomebyrw.gworker.models.FieldWorker;
 import com.ghomebyrw.gworker.models.Job;
+import com.ghomebyrw.gworker.models.LogInInfo;
 import com.ghomebyrw.gworker.models.Price;
 import com.ghomebyrw.gworker.serializers.JobListDeserializer;
 import com.google.gson.Gson;
@@ -12,7 +13,6 @@ import java.util.List;
 import retrofit.Callback;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
-import retrofit.http.Body;
 
 /**
  * Created by wewang on 11/19/15.
@@ -48,17 +48,18 @@ public class JobClient {
         return gson;
     }
 
-    public void updateJobPrice(String jobId, @Body Price jobPrice, Callback<Job> httpHanlder) {
+    public void updateJobPrice(String jobId, Price jobPrice, Callback<Job> httpHanlder) {
 
         // TODO - update once API is deployed to UAT
     }
 
-    public void logIn(String userName, String password, Callback<Boolean> httpHandler) {
+    public void logIn(LogInInfo loginInfo, Callback<Boolean> httpHandler) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(getDeserializer()))
                 .build();
         TooltimeAPI service = retrofit.create(TooltimeAPI.class);
-        service.logIn(userName, password).enqueue(httpHandler);
+        // TODO - update once API is ready
+         service.logIn(loginInfo).enqueue(httpHandler);
     }
 }

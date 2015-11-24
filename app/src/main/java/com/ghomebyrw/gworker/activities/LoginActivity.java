@@ -1,8 +1,9 @@
 package com.ghomebyrw.gworker.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,8 +13,7 @@ import android.widget.Toast;
 
 import com.ghomebyrw.gworker.R;
 import com.ghomebyrw.gworker.clients.JobClient;
-
-import java.net.PasswordAuthentication;
+import com.ghomebyrw.gworker.models.LogInInfo;
 
 import retrofit.Callback;
 import retrofit.Response;
@@ -25,6 +25,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword;
     private Button logInButton;
     private JobClient jobClient;
+
+    private static final String LOG_TAG = LoginActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,21 +43,23 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String emailAddress = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
+                final LogInInfo logInInfo = new LogInInfo(emailAddress, password);
                 if (emailAddress.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, getString(R.string.email_password_not_null),
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    jobClient.logIn(emailAddress, password, new Callback<Boolean>() {
+                    jobClient.logIn(logInInfo, new Callback<Boolean>() {
                         @Override
                         public void onResponse(Response<Boolean> response, Retrofit retrofit) {
+                            Log.i(LOG_TAG, "Login successful");
                             Intent intent = new Intent(LoginActivity.this, JobsActivity.class);
-                            intent.putExtra("email", etEmail.getText());
-                            intent.putExtra("password", etPassword.getText());
+                            intent.putExtra("logInInfo", logInInfo);
                             startActivity(intent);
                         }
 
                         @Override
                         public void onFailure(Throwable t) {
+                            Log.e(LOG_TAG, "Login information invalid");
                             Toast.makeText(LoginActivity.this, getString(R.string.email_password_invalid),
                                     Toast.LENGTH_SHORT).show();
                         }

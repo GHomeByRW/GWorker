@@ -2,11 +2,12 @@ package com.ghomebyrw.gworker.clients;
 
 import com.ghomebyrw.gworker.models.FieldWorker;
 import com.ghomebyrw.gworker.models.Job;
+import com.ghomebyrw.gworker.models.LogInInfo;
 
 import java.util.List;
 
 import retrofit.Call;
-import retrofit.http.Field;
+import retrofit.http.Body;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.Headers;
@@ -34,5 +35,5 @@ public interface TooltimeAPI {
     // TODO - update once API is ready
     @Headers("X-Auth-Token: admin-token")
     @POST("fieldworkers/login")
-    Call<Boolean> logIn(@Field("userName") String userName, @Field("password") String password);
+    Call<Boolean> logIn(@Body LogInInfo loginInfo);
 }
