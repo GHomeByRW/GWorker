@@ -59,6 +59,6 @@ public class JobClient {
                 .addConverterFactory(GsonConverterFactory.create(getDeserializer()))
                 .build();
         TooltimeAPI service = retrofit.create(TooltimeAPI.class);
-        service.logIn().enqueue(httpHandler);
+        service.logIn(userName, password).enqueue(httpHandler);
     }
 }

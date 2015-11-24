@@ -34,19 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
         jobClient = new JobClient();
         etEmail = (EditText) findViewById(R.id.etEmailAddress);
-        etEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                etEmail.setText("");
-            }
-        });
         etPassword = (EditText) findViewById(R.id.etPassword);
-        etPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                etPassword.setText("");
-            }
-        });
         logInButton = (Button) findViewById(R.id.btnLogin);
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                     jobClient.logIn(emailAddress, password, new Callback<Boolean>() {
                         @Override
                         public void onResponse(Response<Boolean> response, Retrofit retrofit) {
-                            Intent intent = new Intent(LoginActivity.this, AccountActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, JobsActivity.class);
                             intent.putExtra("email", etEmail.getText());
                             intent.putExtra("password", etPassword.getText());
                             startActivity(intent);
@@ -68,8 +56,9 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Throwable t) {
-                            Toast.makeText(LoginActivity.this, getString(R.string.email_password_not_null),
-                                    Toast.LENGTH_SHORT).show();                        }
+                            Toast.makeText(LoginActivity.this, getString(R.string.email_password_invalid),
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     });
 
                 }
