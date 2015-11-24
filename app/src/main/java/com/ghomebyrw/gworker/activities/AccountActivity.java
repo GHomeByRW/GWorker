@@ -1,9 +1,11 @@
 package com.ghomebyrw.gworker.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.EditText;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ghomebyrw.gworker.R;
@@ -23,20 +25,33 @@ public class AccountActivity extends AppCompatActivity {
     //TODO: determine id from authenticated user
     String fieldWorkerId = "fdf0399e-19cc-4d3a-b027-727fc0522050";
 
-    private EditText etFirstName;
-    private EditText etLastName;
-    private EditText etPhoneNumber;
-    private EditText etEmail;
+    private FieldWorker fieldWorker;
+    private TextView tvFirstName;
+    private TextView tvLastName;
+    private TextView tvPhoneNumber;
+    private TextView tvEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
-        etFirstName = (EditText) findViewById(R.id.etFirstName);
-        etLastName = (EditText) findViewById(R.id.etLastName);
-        etPhoneNumber = (EditText) findViewById(R.id.etPhoneNumber);
-        etEmail = (EditText) findViewById(R.id.etEmail);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        TextView tvEditAction = (TextView) findViewById(R.id.tvEditAction);
+        tvEditAction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AccountActivity.this, EditProfileActivity.class);
+                intent.putExtra("fieldWorker", fieldWorker);
+                startActivity(intent);
+            }
+        });
+
+        tvFirstName = (TextView) findViewById(R.id.tvFirstName);
+        tvLastName = (TextView) findViewById(R.id.tvLastName);
+        tvPhoneNumber = (TextView) findViewById(R.id.tvPhoneNumber);
+        tvEmail = (TextView) findViewById(R.id.tvEmail);
 
         Log.d(TAG, "onCreate");
         fetchFieldWorker();
@@ -48,14 +63,10 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onResponse(Response<FieldWorker> response, Retrofit retrofit) {
                 if (response.isSuccess()) {
-                    FieldWorker fieldWorker = response.body();
+                    fieldWorker = response.body();
                     Log.d(TAG, "Successfully fetched field worker: " + fieldWorker);
-                    etFirstName.setText(fieldWorker.getFirstName());
-                    etLastName.setText(fieldWorker.getLastName());
-                    etPhoneNumber.setText(fieldWorker.getPhoneNumber());
-                    etEmail.setText(fieldWorker.getEmail());
-                }
-                else {
+                    bindFieldWorker(fieldWorker);
+                } else {
                     String errorBody = null;
                     try {
                         errorBody = response.errorBody().string();
@@ -75,5 +86,12 @@ public class AccountActivity extends AppCompatActivity {
                 Toast.makeText(AccountActivity.this, "Unable to fetch account.", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void bindFieldWorker(FieldWorker fieldWorker) {
+        tvFirstName.setText(fieldWorker.getFirstName());
+        tvLastName.setText(fieldWorker.getLastName());
+        tvPhoneNumber.setText(fieldWorker.getPhoneNumber());
+        tvEmail.setText(fieldWorker.getEmail());
     }
 }
