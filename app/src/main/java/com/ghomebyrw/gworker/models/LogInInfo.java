@@ -6,14 +6,14 @@ import android.os.Parcelable;
 /**
  * Created by wewang on 11/24/15.
  */
-public class LogInInfo implements Parcelable {
+public class LoginInfo implements Parcelable {
     private String userName;
     private String password;
 
-    public LogInInfo() {
+    public LoginInfo() {
     }
 
-    public LogInInfo(String userName, String password) {
+    public LoginInfo(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
@@ -37,18 +37,18 @@ public class LogInInfo implements Parcelable {
         dest.writeString(this.password);
     }
 
-    protected LogInInfo(Parcel in) {
+    protected LoginInfo(Parcel in) {
         this.userName = in.readString();
         this.password = in.readString();
     }
 
-    public static final Creator<LogInInfo> CREATOR = new Creator<LogInInfo>() {
-        public LogInInfo createFromParcel(Parcel source) {
-            return new LogInInfo(source);
+    public static final Creator<LoginInfo> CREATOR = new Creator<LoginInfo>() {
+        public LoginInfo createFromParcel(Parcel source) {
+            return new LoginInfo(source);
         }
 
-        public LogInInfo[] newArray(int size) {
-            return new LogInInfo[size];
+        public LoginInfo[] newArray(int size) {
+            return new LoginInfo[size];
         }
     };
 }

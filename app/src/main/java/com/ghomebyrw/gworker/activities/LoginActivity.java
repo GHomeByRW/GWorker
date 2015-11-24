@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.ghomebyrw.gworker.R;
 import com.ghomebyrw.gworker.clients.JobClient;
-import com.ghomebyrw.gworker.models.LogInInfo;
+import com.ghomebyrw.gworker.models.LoginInfo;
 
 import retrofit.Callback;
 import retrofit.Response;
@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText etEmail;
     private EditText etPassword;
-    private Button logInButton;
+    private Button loginButton;
     private JobClient jobClient;
 
     private static final String LOG_TAG = LoginActivity.class.getName();
@@ -37,18 +37,18 @@ public class LoginActivity extends AppCompatActivity {
         jobClient = new JobClient();
         etEmail = (EditText) findViewById(R.id.etEmailAddress);
         etPassword = (EditText) findViewById(R.id.etPassword);
-        logInButton = (Button) findViewById(R.id.btnLogin);
-        logInButton.setOnClickListener(new View.OnClickListener() {
+        loginButton = (Button) findViewById(R.id.btnLogin);
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String emailAddress = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
-                final LogInInfo logInInfo = new LogInInfo(emailAddress, password);
+                final LoginInfo logInInfo = new LoginInfo(emailAddress, password);
                 if (emailAddress.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, getString(R.string.email_password_not_null),
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    jobClient.logIn(logInInfo, new Callback<Boolean>() {
+                    jobClient.login(logInInfo, new Callback<Boolean>() {
                         @Override
                         public void onResponse(Response<Boolean> response, Retrofit retrofit) {
                             Log.i(LOG_TAG, "Login successful");

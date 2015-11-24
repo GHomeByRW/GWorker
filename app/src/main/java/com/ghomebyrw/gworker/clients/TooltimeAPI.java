@@ -2,7 +2,7 @@ package com.ghomebyrw.gworker.clients;
 
 import com.ghomebyrw.gworker.models.FieldWorker;
 import com.ghomebyrw.gworker.models.Job;
-import com.ghomebyrw.gworker.models.LogInInfo;
+import com.ghomebyrw.gworker.models.LoginInfo;
 
 import java.util.List;
 
@@ -35,5 +35,5 @@ public interface TooltimeAPI {
     // TODO - update once API is ready
     @Headers("X-Auth-Token: admin-token")
     @POST("fieldworkers/login")
-    Call<Boolean> logIn(@Body LogInInfo loginInfo);
+    Call<Boolean> logIn(@Body LoginInfo loginInfo);
 }

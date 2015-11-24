@@ -2,7 +2,7 @@ package com.ghomebyrw.gworker.clients;
 
 import com.ghomebyrw.gworker.models.FieldWorker;
 import com.ghomebyrw.gworker.models.Job;
-import com.ghomebyrw.gworker.models.LogInInfo;
+import com.ghomebyrw.gworker.models.LoginInfo;
 import com.ghomebyrw.gworker.models.Price;
 import com.ghomebyrw.gworker.serializers.JobListDeserializer;
 import com.google.gson.Gson;
@@ -53,7 +53,7 @@ public class JobClient {
         // TODO - update once API is deployed to UAT
     }
 
-    public void logIn(LogInInfo loginInfo, Callback<Boolean> httpHandler) {
+    public void login(LoginInfo loginInfo, Callback<Boolean> httpHandler) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(getDeserializer()))
