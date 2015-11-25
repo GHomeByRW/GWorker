@@ -71,7 +71,7 @@ public class JobClient {
         return gson;
     }
 
-    public void login(LoginInfo loginInfo, Callback<Job> httpHandler) {
+    public void login(LoginInfo loginInfo, Callback<Boolean> httpHandler) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(getDeserializer()))

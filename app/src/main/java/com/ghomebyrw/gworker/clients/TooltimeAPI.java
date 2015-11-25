@@ -36,5 +36,5 @@ public interface TooltimeAPI {
     // TODO - update once API is ready
     @Headers("X-Auth-Token: admin-token")
     @POST("fieldworkers/login")
-    Call<Job> logIn(@Body LoginInfo loginInfo);
+    Call<Boolean> logIn(@Body LoginInfo loginInfo);
 }
