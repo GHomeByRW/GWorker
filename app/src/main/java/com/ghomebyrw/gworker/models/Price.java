@@ -9,19 +9,24 @@ import com.ghomebyrw.gworker.utils.CurrencyHelper;
  * Created by wewang on 11/19/15.
  */
 public class Price implements Parcelable {
-    private PriceItem laborPrice;
+    private PriceItem servicePrice;
     private PriceItem partsPrice;
+
+    public enum PriceType {
+        SERVICE,
+        PARTS
+    }
 
     public Price() {
     }
 
-    public Price(PriceItem laborPrice, PriceItem partsPrice) {
-        this.laborPrice = laborPrice;
+    public Price(PriceItem servicePrice, PriceItem partsPrice) {
+        this.servicePrice = servicePrice;
         this.partsPrice = partsPrice;
     }
 
-    public PriceItem getLaborPrice() {
-        return laborPrice;
+    public PriceItem getServicePrice() {
+        return servicePrice;
     }
 
     public PriceItem getPartsPrice() {
@@ -29,13 +34,17 @@ public class Price implements Parcelable {
     }
 
     public String getFormattedAmount() {
-        return CurrencyHelper.formatCurrencyInDefaultLocale(laborPrice.getAmount() + partsPrice.getAmount());
+        double amount = servicePrice.getAmount();
+        if (partsPrice != null) {
+            amount += partsPrice.getAmount();
+        }
+        return CurrencyHelper.formatCurrencyInDefaultLocale(amount);
     }
 
     @Override
     public String toString() {
         return "Price{" +
-                "laborPrice=" + laborPrice +
+                "servicePrice=" + servicePrice +
                 ", partsPrice=" + partsPrice +
                 '}';
     }
@@ -47,12 +56,12 @@ public class Price implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(this.laborPrice, 0);
+        dest.writeParcelable(this.servicePrice, 0);
         dest.writeParcelable(this.partsPrice, 0);
     }
 
     protected Price(Parcel in) {
-        this.laborPrice = in.readParcelable(PriceItem.class.getClassLoader());
+        this.servicePrice = in.readParcelable(PriceItem.class.getClassLoader());
         this.partsPrice = in.readParcelable(PriceItem.class.getClassLoader());
     }
 

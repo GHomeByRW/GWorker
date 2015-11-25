@@ -10,19 +10,21 @@ public class PriceItem implements Parcelable {
     private double amount;
     private String currencyCode;
     private String formattedAmount;
+    private String type;
     private String description;
 
     public PriceItem() {
     }
 
-    public PriceItem(double amount, String currencyCode, String formattedAmount) {
-        this(amount, currencyCode, formattedAmount, null);
+    public PriceItem(double amount, String currencyCode, String formattedAmount, String type) {
+        this(amount, currencyCode, formattedAmount, type, null);
     }
 
-    public PriceItem(double amount, String currencyCode, String formattedAmount, String description) {
+    public PriceItem(double amount, String currencyCode, String formattedAmount, String type, String description) {
         this.amount = amount;
         this.currencyCode = currencyCode;
         this.formattedAmount = formattedAmount;
+        this.type = type;
         this.description = description;
     }
 
@@ -47,6 +49,21 @@ public class PriceItem implements Parcelable {
         return description;
     }
 
+    @Override
+    public String toString() {
+        return "PriceItem{" +
+                "amount=" + amount +
+                ", currencyCode='" + currencyCode + '\'' +
+                ", formattedAmount='" + formattedAmount + '\'' +
+                ", type='" + type + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
+    public String getType() {
+        return type;
+    }
+
     public void setAmount(double amount) {
         this.amount = amount;
     }
@@ -64,16 +81,6 @@ public class PriceItem implements Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "PriceItem{" +
-                "amount=" + amount +
-                ", currencyCode='" + currencyCode + '\'' +
-                ", formattedAmount='" + formattedAmount + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }
@@ -83,6 +90,7 @@ public class PriceItem implements Parcelable {
         dest.writeDouble(this.amount);
         dest.writeString(this.currencyCode);
         dest.writeString(this.formattedAmount);
+        dest.writeString(this.type);
         dest.writeString(this.description);
     }
 
@@ -90,6 +98,7 @@ public class PriceItem implements Parcelable {
         this.amount = in.readDouble();
         this.currencyCode = in.readString();
         this.formattedAmount = in.readString();
+        this.type = in.readString();
         this.description = in.readString();
     }
 

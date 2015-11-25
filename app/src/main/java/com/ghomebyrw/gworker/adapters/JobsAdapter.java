@@ -86,6 +86,7 @@ public class JobsAdapter extends ArrayAdapter<Job> {
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(), PriceUpdateActivity.class);
                     intent.putExtra("price", job.getAcceptedPrice());
+                    intent.putExtra("jobId", job.getId().toString());
                     getContext().startActivity(intent);
                 }
             });

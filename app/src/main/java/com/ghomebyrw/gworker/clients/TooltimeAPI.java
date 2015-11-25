@@ -3,6 +3,7 @@ package com.ghomebyrw.gworker.clients;
 import com.ghomebyrw.gworker.models.FieldWorker;
 import com.ghomebyrw.gworker.models.Job;
 import com.ghomebyrw.gworker.models.LoginInfo;
+import com.ghomebyrw.gworker.models.Price;
 
 import java.util.List;
 
@@ -19,14 +20,14 @@ import retrofit.http.Path;
  * Created by wewang on 11/20/15.
  */
 public interface TooltimeAPI {
-    @Headers("X-Auth-Token: admin-token")
+    @Headers({"X-Auth-Token: admin-token",
+            "Cache-Control: no-cache, no-store, must-revalidate"})
     @GET("fieldworkers/{id}/jobs")
     Call<List<Job>> fetchJobs(@Path("id") String id);
 
     @Headers("X-Auth-Token: admin-token")
     @PATCH("jobs/{id}")
-    @FormUrlEncoded
-    Call<Job> updateJobPrice(@Path("id") String id);
+    Call<Job> updateJobPrice(@Path("id") String id, @Body Price finalPrice);
 
     @Headers("X-Auth-Token: admin-token")
     @GET("fieldworkers/{id}")
@@ -35,5 +36,5 @@ public interface TooltimeAPI {
     // TODO - update once API is ready
     @Headers("X-Auth-Token: admin-token")
     @POST("fieldworkers/login")
-    Call<Boolean> logIn(@Body LoginInfo loginInfo);
+    Call<Job> logIn(@Body LoginInfo loginInfo);
 }

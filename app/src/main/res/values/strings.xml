@@ -42,4 +42,5 @@
     <string name="email_password_not_null">Email address and password cannot be empty!</string>
     <string name="email_password_invalid">Email address or password not valid!</string>
     <string name="job_fetch_failure">Failed to fetch jobs, please try again later.</string>
+    <string name="price_update_failure">Failed to update price, please try again later.</string>
 </resources>

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.ghomebyrw.gworker.R;
 import com.ghomebyrw.gworker.clients.JobClient;
+import com.ghomebyrw.gworker.models.Job;
 import com.ghomebyrw.gworker.models.LoginInfo;
 
 import retrofit.Callback;
@@ -48,9 +49,9 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, getString(R.string.email_password_not_null),
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    jobClient.login(logInInfo, new Callback<Boolean>() {
+                    jobClient.login(logInInfo, new Callback<Job>() {
                         @Override
-                        public void onResponse(Response<Boolean> response, Retrofit retrofit) {
+                        public void onResponse(Response<Job> response, Retrofit retrofit) {
                             Log.i(LOG_TAG, "Login successful");
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             intent.putExtra("logInInfo", logInInfo);

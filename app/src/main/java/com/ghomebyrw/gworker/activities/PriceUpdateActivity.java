@@ -5,17 +5,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ghomebyrw.gworker.R;
+import com.ghomebyrw.gworker.clients.JobClient;
+import com.ghomebyrw.gworker.models.Job;
 import com.ghomebyrw.gworker.models.Price;
 
-import org.w3c.dom.Text;
+import java.util.UUID;
+
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 public class PriceUpdateActivity extends AppCompatActivity {
 
@@ -26,7 +34,11 @@ public class PriceUpdateActivity extends AppCompatActivity {
     private TextView tvPartsCostDisplay;
     private TextView tvTotalCostDisplay;
     private Price price;
+    private UUID jobId;
     private Button saveButton;
+    private JobClient jobClient;
+
+    private static final String LOG_TAG = PriceUpdateActivity.class.getName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +47,8 @@ public class PriceUpdateActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        jobClient = new JobClient();
+        jobId = UUID.fromString(getIntent().getStringExtra("jobId"));
         tvLaborPrice = (EditText) findViewById(R.id.etEditLaborCost);
         tvPartsPrice = (EditText) findViewById(R.id.etEditPartsCost);
         tvPartsDescription = (EditText) findViewById(R.id.etEditPartsDescription);
@@ -68,12 +82,12 @@ public class PriceUpdateActivity extends AppCompatActivity {
         tvLaborPrice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    price.getLaborPrice().setAmount(Double.parseDouble(tvLaborPrice.getText().toString()));
+                    price.getServicePrice().setAmount(Double.parseDouble(tvLaborPrice.getText().toString()));
                     tvTotalCostDisplay.setText(price.getFormattedAmount());
                 }
             }
         });
-        tvLaborPrice.setText(oldPrice.getLaborPrice().getDisplayAmount());
+        tvLaborPrice.setText(oldPrice.getServicePrice().getDisplayAmount());
 
         tvPartsPrice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,7 +134,7 @@ public class PriceUpdateActivity extends AppCompatActivity {
         });
         tvPartsDescription.setText(oldPrice.getPartsPrice().getDescription());
 
-        tvLaborCostDisplay.setText(oldPrice.getLaborPrice().getFormattedAmount());
+        tvLaborCostDisplay.setText(oldPrice.getServicePrice().getFormattedAmount());
         tvPartsCostDisplay.setText(oldPrice.getPartsPrice().getFormattedAmount());
         tvTotalCostDisplay.setText(oldPrice.getFormattedAmount());
 
@@ -155,6 +169,24 @@ public class PriceUpdateActivity extends AppCompatActivity {
     }
 
     public void updatePrice() {
+        price.getServicePrice().setAmount(Double.parseDouble(tvLaborPrice.getText().toString()));
+        price.getPartsPrice().setAmount(Double.parseDouble(tvPartsPrice.getText().toString()));
+        price.getPartsPrice().setDescription(tvPartsDescription.getText().toString());
 
+        jobClient.updateJobPrice(jobId.toString(), price, new Callback<Job>() {
+            @Override
+            public void onResponse(Response<Job> response, Retrofit retrofit) {
+                Log.i(LOG_TAG, "succeeded");
+                Intent intent = new Intent(PriceUpdateActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                Log.e(LOG_TAG, t.getLocalizedMessage());
+                Toast.makeText(PriceUpdateActivity.this, getString(R.string.price_update_failure),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
