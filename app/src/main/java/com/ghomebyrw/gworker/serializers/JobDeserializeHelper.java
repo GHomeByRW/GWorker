@@ -26,7 +26,7 @@ public final class JobDeserializeHelper {
                 deserializeDateTime(jobJson.get("scheduledDateAndTime").getAsJsonObject()),
                 JobStatus.valueOf(jobJson.get("status").getAsString()),
                 UUID.fromString(jobJson.get("customerId").getAsString()),
-                deserializePrice(jobJson.get("estimatedLowPrice").getAsJsonObject()),
+                deserializePrice(jobJson),
                 deserializeLocation(jobJson),
                 jobJson.get("timeZone").getAsString(),
                 jobJson.get("customerPhoneNumber").getAsString(),
@@ -46,7 +46,14 @@ public final class JobDeserializeHelper {
         }
     }
 
-    public static Price deserializePrice(JsonObject jsonObject) {
+    public static Price deserializePrice(JsonObject jobJson) {
+        JsonObject jsonObject;
+        if (jobJson.get("finalPrice").isJsonNull()) {
+            jsonObject = jobJson.get("estimatedLowPrice").getAsJsonObject();
+        } else {
+            jsonObject = jobJson.get("finalPrice").getAsJsonObject();
+        }
+
         JsonObject servicePrice = jsonObject.get("servicePrice").getAsJsonObject();
         PriceItem laborPrice = new PriceItem(servicePrice.get("amount").getAsInt()/100,
                 servicePrice.get("currencyCode").getAsString(),
