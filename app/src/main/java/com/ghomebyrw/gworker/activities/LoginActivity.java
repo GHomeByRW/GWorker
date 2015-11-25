@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onResponse(Response<Boolean> response, Retrofit retrofit) {
                             Log.i(LOG_TAG, "Login successful");
-                            Intent intent = new Intent(LoginActivity.this, JobsActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             intent.putExtra("logInInfo", logInInfo);
                             startActivity(intent);
                         }

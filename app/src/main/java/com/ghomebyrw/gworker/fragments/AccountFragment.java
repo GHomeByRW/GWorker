@@ -1,14 +1,18 @@
-package com.ghomebyrw.gworker.activities;
+package com.ghomebyrw.gworker.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ghomebyrw.gworker.R;
+import com.ghomebyrw.gworker.activities.EditProfileActivity;
 import com.ghomebyrw.gworker.clients.JobClient;
 import com.ghomebyrw.gworker.models.FieldWorker;
 
@@ -18,9 +22,9 @@ import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
-public class AccountActivity extends AppCompatActivity {
+public class AccountFragment extends Fragment {
 
-    public static final String TAG = AccountActivity.class.getName();
+    public static final String TAG = AccountFragment.class.getName();
 
     //TODO: determine id from authenticated user
     String fieldWorkerId = "fdf0399e-19cc-4d3a-b027-727fc0522050";
@@ -32,29 +36,32 @@ public class AccountActivity extends AppCompatActivity {
     private TextView tvEmail;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account);
+    }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-        TextView tvEditAction = (TextView) findViewById(R.id.tvEditAction);
+        TextView tvEditAction = (TextView) view.findViewById(R.id.tvEditAction);
         tvEditAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AccountActivity.this, EditProfileActivity.class);
+                Intent intent = new Intent(getContext(), EditProfileActivity.class);
                 intent.putExtra("fieldWorker", fieldWorker);
                 startActivity(intent);
             }
         });
 
-        tvFirstName = (TextView) findViewById(R.id.tvFirstName);
-        tvLastName = (TextView) findViewById(R.id.tvLastName);
-        tvPhoneNumber = (TextView) findViewById(R.id.tvPhoneNumber);
-        tvEmail = (TextView) findViewById(R.id.tvEmail);
+        tvFirstName = (TextView) view.findViewById(R.id.tvFirstName);
+        tvLastName = (TextView) view.findViewById(R.id.tvLastName);
+        tvPhoneNumber = (TextView) view.findViewById(R.id.tvPhoneNumber);
+        tvEmail = (TextView) view.findViewById(R.id.tvEmail);
 
-        Log.d(TAG, "onCreate");
         fetchFieldWorker();
+        return view;
     }
 
     private void fetchFieldWorker() {
@@ -75,7 +82,7 @@ public class AccountActivity extends AppCompatActivity {
                     }
                     Log.d(TAG, String.format("Failed to fetch field worker: code: %s, body: %s", response.code(), errorBody));
                     //TODO: tell the user about the error more gracefully
-                    Toast.makeText(AccountActivity.this, "Unable to fetch account.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Unable to fetch account.", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -83,7 +90,7 @@ public class AccountActivity extends AppCompatActivity {
             public void onFailure(Throwable t) {
                 Log.d(TAG, "Failed to fetch field worker due to exception: " + t);
                 //TODO: tell the user about the error more gracefully
-                Toast.makeText(AccountActivity.this, "Unable to fetch account.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Unable to fetch account.", Toast.LENGTH_LONG).show();
             }
         });
     }
