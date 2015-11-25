@@ -30,6 +30,8 @@ public class JobsFragment extends Fragment {
     private List<Job> jobs = new ArrayList<>();
     private JobClient jobClient;
 
+    private static final String FIELDWORKER_ID = "fdf0399e-19cc-4d3a-b027-727fc0522050";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,10 +50,11 @@ public class JobsFragment extends Fragment {
     }
 
     private void fetchJobs() {
-        jobClient.fetchJobs("fdf0399e-19cc-4d3a-b027-727fc0522050", new Callback<List<Job>>() {
+        jobClient.fetchJobs(FIELDWORKER_ID, new Callback<List<Job>>() {
             @Override
             public void onResponse(Response<List<Job>> response,
                                    Retrofit retrofit) {
+                jobsAdapter.clear();
                 jobsAdapter.addAll(response.body());
                 Log.i(LOG_TAG, response.body().toString());
             }

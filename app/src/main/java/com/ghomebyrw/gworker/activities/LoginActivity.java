@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.ghomebyrw.gworker.R;
 import com.ghomebyrw.gworker.clients.JobClient;
+import com.ghomebyrw.gworker.models.Job;
 import com.ghomebyrw.gworker.models.LoginInfo;
 
 import retrofit.Callback;

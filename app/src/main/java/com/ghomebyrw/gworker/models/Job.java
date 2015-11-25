@@ -1,35 +1,45 @@
 package com.ghomebyrw.gworker.models;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.UUID;
 
 /**
  * Created by wewang on 11/19/15.
  */
-public class Job {
+public class Job implements Serializable {
+    private UUID id;
     private String serviceName;
     private ScheduledDateAndTime scheduledDateAndTime;
     private JobStatus status;
     private UUID customerId;
-    private Price price;
+    private Price finalPrice;
     private Location location;
     private String timeZone;
     private String customerPhoneNumber;
     private String note;
-    private int estimatedMinutes;
+    private Integer estimatedMinutes;
     private HashMap<String, String> questionToAnswer;
     private String fieldworker;
 
-    public Job(String serviceName, ScheduledDateAndTime scheduledDateAndTime,
+    public Job() {
+    }
+
+    public Job(Price price) {
+        this.finalPrice = price;
+    }
+
+    public Job(UUID id, String serviceName, ScheduledDateAndTime scheduledDateAndTime,
                JobStatus status,
                UUID customerId, Price acceptedPrice, Location location,
                String timeZone, String customerPhoneNumber, String note, int estimatedMinutes,
                HashMap<String, String> questionToAnswer, String fieldworker) {
+        this.id = id;
         this.serviceName = serviceName;
         this.scheduledDateAndTime = scheduledDateAndTime;
         this.status = status;
         this.customerId = customerId;
-        this.price = acceptedPrice;
+        this.finalPrice = acceptedPrice;
         this.location = location;
         this.timeZone = timeZone;
         this.customerPhoneNumber = customerPhoneNumber;
@@ -37,6 +47,10 @@ public class Job {
         this.estimatedMinutes = estimatedMinutes;
         this.questionToAnswer = questionToAnswer;
         this.fieldworker = fieldworker;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public String getServiceName() {
@@ -56,7 +70,7 @@ public class Job {
     }
 
     public Price getAcceptedPrice() {
-        return price;
+        return finalPrice;
     }
 
     public Location getLocation() {
@@ -75,7 +89,7 @@ public class Job {
         return note;
     }
 
-    public int getEstimatedMinutes() {
+    public Integer getEstimatedMinutes() {
         return estimatedMinutes;
     }
 
@@ -90,12 +104,13 @@ public class Job {
     @Override
     public String toString() {
         return "Job{" +
-                "serviceName='" + serviceName + '\'' +
+                "id=" + id +
+                ", serviceName='" + serviceName + '\'' +
                 ", scheduledDateAndTime=" + scheduledDateAndTime +
                 ", status=" + status +
                 ", customerId=" + customerId +
-                ", price=" + price +
-                ", location='" + location + '\'' +
+                ", finalPrice=" + finalPrice +
+                ", location=" + location +
                 ", timeZone='" + timeZone + '\'' +
                 ", customerPhoneNumber='" + customerPhoneNumber + '\'' +
                 ", note='" + note + '\'' +

@@ -4,7 +4,10 @@ import com.ghomebyrw.gworker.models.FieldWorker;
 import com.ghomebyrw.gworker.models.Job;
 import com.ghomebyrw.gworker.models.LoginInfo;
 import com.ghomebyrw.gworker.models.Price;
+import com.ghomebyrw.gworker.serializers.JobDeserializer;
 import com.ghomebyrw.gworker.serializers.JobListDeserializer;
+import com.ghomebyrw.gworker.serializers.PriceSerializer;
+import com.ghomebyrw.gworker.utils.CurrencyHelper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -48,9 +51,24 @@ public class JobClient {
         return gson;
     }
 
-    public void updateJobPrice(String jobId, Price jobPrice, Callback<Job> httpHanlder) {
+    public void updateJobPrice(String jobId, Price finalPrice, Callback<Job> httpHanlder) {
+        Price priceForUpdate = CurrencyHelper.createPriceForUpdate(finalPrice);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(getPriceSerializer()))
+                .build();
 
-        // TODO - update once API is deployed to UAT
+        TooltimeAPI service = retrofit.create(TooltimeAPI.class);
+        service.updateJobPrice(jobId, priceForUpdate).enqueue(httpHanlder);
+    }
+
+    private Gson getPriceSerializer() {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Job.class, new JobDeserializer())
+                .registerTypeAdapter(Price.class, new PriceSerializer())
+                .create();
+
+        return gson;
     }
 
     public void login(LoginInfo loginInfo, Callback<Boolean> httpHandler) {
