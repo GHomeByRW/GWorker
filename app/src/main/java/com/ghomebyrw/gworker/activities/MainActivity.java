@@ -9,26 +9,28 @@ import android.support.v7.app.AppCompatActivity;
 import com.ghomebyrw.gworker.R;
 import com.ghomebyrw.gworker.adapters.MainFragmentPagerAdapter;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getName();
     public static String POSITION = "POSITION";
 
-    private ViewPager viewPager;
-    private TabLayout tabLayout;
+    @Bind(R.id.viewpager) ViewPager viewPager;
+    @Bind(R.id.sliding_tabs) TabLayout tabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         hideActionBar();
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(), MainActivity.this));
         viewPager.setCurrentItem(MainFragmentPagerAdapter.JOBS_TAB);
 
-        tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
     }
 

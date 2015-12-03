@@ -18,6 +18,7 @@ import com.ghomebyrw.gworker.models.Job;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
@@ -42,7 +43,7 @@ public class JobsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_jobs, container, false);
         jobClient = new JobClient();
-        ListView lvJobs = (ListView) view.findViewById(R.id.lvJobs);
+        ListView lvJobs = ButterKnife.findById(view, R.id.lvJobs);
         jobsAdapter = new JobsAdapter(getContext(), jobs);
         lvJobs.setAdapter(jobsAdapter);
         fetchJobs();

@@ -22,23 +22,30 @@ import com.squareup.picasso.Picasso;
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by wewang on 11/19/15.
  */
 public class JobsAdapter extends ArrayAdapter<Job> {
-    private static class ViewHolder {
-        TextView tvStartTimeHour;
-        TextView tvStartTimeAmPm;
-        TextView tvEndTimeHour;
-        TextView tvEndTimeAmPm;
-        Spinner spnJobStatus;
-        TextView tvAddress;
-        TextView tvPrice;
-        TextView tvContact;
-        ImageView ivMap;
-        TextView tvPriceUpdate;
-        ImageView ivPhone;
-        ImageView ivMessage;
+    static class ViewHolder {
+        @Bind(R.id.tvStartTimeHour) TextView tvStartTimeHour;
+        @Bind(R.id.tvStartTimeAMPM) TextView tvStartTimeAmPm;
+        @Bind(R.id.tvEndTimeHour) TextView tvEndTimeHour;
+        @Bind(R.id.tvEndTimeAMPM) TextView tvEndTimeAmPm;
+        @Bind(R.id.spnStatus) Spinner spnJobStatus;
+        @Bind(R.id.tvAddress) TextView tvAddress;
+        @Bind(R.id.tvPrice) TextView tvPrice;
+        @Bind(R.id.tvContact) TextView tvContact;
+        @Bind(R.id.ivMap) ImageView ivMap;
+        @Bind(R.id.tvUpdatePriceLabel) TextView tvPriceUpdate;
+        @Bind(R.id.ivPhone) ImageView ivPhone;
+        @Bind(R.id.ivMessage) ImageView ivMessage;
+
+        public ViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 
     public JobsAdapter(Context context, List<Job> jobs) {
@@ -51,14 +58,8 @@ public class JobsAdapter extends ArrayAdapter<Job> {
         ViewHolder viewHolder;
 
         if (convertView == null) {
-            viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.job_summary, parent, false);
-
-            viewHolder.tvStartTimeHour = (TextView) convertView.findViewById(R.id.tvStartTimeHour);
-            viewHolder.tvStartTimeAmPm = (TextView) convertView.findViewById(R.id.tvStartTimeAMPM);
-            viewHolder.tvEndTimeHour = (TextView) convertView.findViewById(R.id.tvEndTimeHour);
-            viewHolder.tvEndTimeAmPm = (TextView) convertView.findViewById(R.id.tvEndTimeAMPM);
-            viewHolder.spnJobStatus = (Spinner)convertView.findViewById(R.id.spnStatus);
+            viewHolder = new ViewHolder(convertView);
 
             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter(getContext(),
                     android.R.layout.simple_spinner_dropdown_item,
@@ -76,11 +77,6 @@ public class JobsAdapter extends ArrayAdapter<Job> {
                 }
             });
 
-            viewHolder.tvAddress = (TextView) convertView.findViewById(R.id.tvAddress);
-            viewHolder.tvPrice = (TextView) convertView.findViewById(R.id.tvPrice);
-            viewHolder.tvContact = (TextView) convertView.findViewById(R.id.tvContact);
-            viewHolder.ivMap = (ImageView) convertView.findViewById(R.id.ivMap);
-            viewHolder.tvPriceUpdate = (TextView) convertView.findViewById(R.id.tvUpdatePriceLabel);
             viewHolder.tvPriceUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -90,7 +86,7 @@ public class JobsAdapter extends ArrayAdapter<Job> {
                     getContext().startActivity(intent);
                 }
             });
-            viewHolder.ivPhone = (ImageView) convertView.findViewById(R.id.ivPhone);
+
             viewHolder.ivPhone.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -100,7 +96,6 @@ public class JobsAdapter extends ArrayAdapter<Job> {
                 }
             });
 
-            viewHolder.ivMessage = (ImageView) convertView.findViewById(R.id.ivMessage);
             viewHolder.ivMessage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
