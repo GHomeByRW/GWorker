@@ -18,6 +18,9 @@ import com.ghomebyrw.gworker.models.FieldWorker;
 
 import java.io.IOException;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
@@ -30,10 +33,10 @@ public class AccountFragment extends Fragment {
     String fieldWorkerId = "fdf0399e-19cc-4d3a-b027-727fc0522050";
 
     private FieldWorker fieldWorker;
-    private TextView tvFirstName;
-    private TextView tvLastName;
-    private TextView tvPhoneNumber;
-    private TextView tvEmail;
+    @Bind(R.id.tvFirstName) TextView tvFirstName;
+    @Bind(R.id.tvLastName) TextView tvLastName;
+    @Bind(R.id.tvPhoneNumber) TextView tvPhoneNumber;
+    @Bind(R.id.tvEmail) TextView tvEmail;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,24 +47,23 @@ public class AccountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
-
-        TextView tvEditAction = (TextView) view.findViewById(R.id.tvEditAction);
-        tvEditAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), EditProfileActivity.class);
-                intent.putExtra("fieldWorker", fieldWorker);
-                startActivity(intent);
-            }
-        });
-
-        tvFirstName = (TextView) view.findViewById(R.id.tvFirstName);
-        tvLastName = (TextView) view.findViewById(R.id.tvLastName);
-        tvPhoneNumber = (TextView) view.findViewById(R.id.tvPhoneNumber);
-        tvEmail = (TextView) view.findViewById(R.id.tvEmail);
+        ButterKnife.bind(this, view);
 
         fetchFieldWorker();
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
+    @OnClick(R.id.tvEditAction)
+    void editProfile() {
+        Intent intent = new Intent(getContext(), EditProfileActivity.class);
+        intent.putExtra("fieldWorker", fieldWorker);
+        startActivity(intent);
     }
 
     private void fetchFieldWorker() {

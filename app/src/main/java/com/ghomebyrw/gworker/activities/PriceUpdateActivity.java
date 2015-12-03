@@ -1,8 +1,8 @@
 package com.ghomebyrw.gworker.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,21 +21,23 @@ import com.ghomebyrw.gworker.models.Price;
 
 import java.util.UUID;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import retrofit.Callback;
 import retrofit.Response;
 import retrofit.Retrofit;
 
 public class PriceUpdateActivity extends AppCompatActivity {
 
-    private EditText tvLaborPrice;
-    private EditText tvPartsPrice;
-    private EditText tvPartsDescription;
-    private TextView tvLaborCostDisplay;
-    private TextView tvPartsCostDisplay;
-    private TextView tvTotalCostDisplay;
+    @Bind(R.id.etEditLaborCost) EditText etLaborPrice;
+    @Bind(R.id.etEditPartsCost) EditText etPartsPrice;
+    @Bind(R.id.etEditPartsDescription) EditText etPartsDescription;
+    @Bind(R.id.tvDisplayLaborPrice) TextView tvLaborCostDisplay;
+    @Bind(R.id.tvDisplayPartsPrice) TextView tvPartsCostDisplay;
+    @Bind(R.id.tvDisplayTotalPrice) TextView tvTotalCostDisplay;
+    @Bind(R.id.btnUpdate) Button saveButton;
     private Price price;
     private UUID jobId;
-    private Button saveButton;
     private JobClient jobClient;
 
     private static final String LOG_TAG = PriceUpdateActivity.class.getName();
@@ -44,28 +46,22 @@ public class PriceUpdateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_price_update);
+        ButterKnife.bind(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         jobClient = new JobClient();
         jobId = UUID.fromString(getIntent().getStringExtra("jobId"));
-        tvLaborPrice = (EditText) findViewById(R.id.etEditLaborCost);
-        tvPartsPrice = (EditText) findViewById(R.id.etEditPartsCost);
-        tvPartsDescription = (EditText) findViewById(R.id.etEditPartsDescription);
-        tvLaborCostDisplay = (TextView) findViewById(R.id.tvDisplayLaborPrice);
-        tvPartsCostDisplay = (TextView) findViewById(R.id.tvDisplayPartsPrice);
-        tvTotalCostDisplay = (TextView) findViewById(R.id.tvDisplayTotalPrice);
-        saveButton = (Button) findViewById(R.id.btnUpdate);
 
         final Price oldPrice = getIntent().getParcelableExtra("price");
         price = oldPrice;
-        tvLaborPrice.setOnClickListener(new View.OnClickListener() {
+        etLaborPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tvLaborPrice.setText("");
+                etLaborPrice.setText("");
             }
         });
-        tvLaborPrice.addTextChangedListener(new TextWatcher() {
+        etLaborPrice.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -76,26 +72,27 @@ public class PriceUpdateActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvLaborCostDisplay.setText("$" + tvLaborPrice.getText());
+                tvLaborCostDisplay.setText("$" + etLaborPrice.getText());
             }
         });
-        tvLaborPrice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        etLaborPrice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    price.getServicePrice().setAmount(Double.parseDouble(tvLaborPrice.getText().toString()));
+                    //TODO: gracefully handle bad input (currently crashes if input isn't a number)
+                    price.getServicePrice().setAmount(Double.parseDouble(etLaborPrice.getText().toString()));
                     tvTotalCostDisplay.setText(price.getFormattedAmount());
                 }
             }
         });
-        tvLaborPrice.setText(oldPrice.getServicePrice().getDisplayAmount());
+        etLaborPrice.setText(oldPrice.getServicePrice().getDisplayAmount());
 
-        tvPartsPrice.setOnClickListener(new View.OnClickListener() {
+        etPartsPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tvPartsPrice.setText("");
+                etPartsPrice.setText("");
             }
         });
-        tvPartsPrice.addTextChangedListener(new TextWatcher() {
+        etPartsPrice.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -106,33 +103,34 @@ public class PriceUpdateActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvPartsCostDisplay.setText("$" + tvPartsPrice.getText());
+                tvPartsCostDisplay.setText("$" + etPartsPrice.getText());
             }
         });
-        tvPartsPrice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        etPartsPrice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    price.getPartsPrice().setAmount(Double.parseDouble(tvPartsPrice.getText().toString()));
+                    //TODO: gracefully handle bad input (currently crashes if input isn't a number)
+                    price.getPartsPrice().setAmount(Double.parseDouble(etPartsPrice.getText().toString()));
                     tvTotalCostDisplay.setText(price.getFormattedAmount());
                 }
             }
         });
-        tvPartsPrice.setText(oldPrice.getPartsPrice().getDisplayAmount());
+        etPartsPrice.setText(oldPrice.getPartsPrice().getDisplayAmount());
 
-        tvPartsDescription.setOnClickListener(new View.OnClickListener() {
+        etPartsDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tvPartsDescription.setText("");
+                etPartsDescription.setText("");
             }
         });
-        tvPartsDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        etPartsDescription.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                    price.getPartsPrice().setDescription(tvPartsDescription.getText().toString());
+                    price.getPartsPrice().setDescription(etPartsDescription.getText().toString());
                 }
             }
         });
-        tvPartsDescription.setText(oldPrice.getPartsPrice().getDescription());
+        etPartsDescription.setText(oldPrice.getPartsPrice().getDescription());
 
         tvLaborCostDisplay.setText(oldPrice.getServicePrice().getFormattedAmount());
         tvPartsCostDisplay.setText(oldPrice.getPartsPrice().getFormattedAmount());
@@ -169,9 +167,9 @@ public class PriceUpdateActivity extends AppCompatActivity {
     }
 
     public void updatePrice() {
-        price.getServicePrice().setAmount(Double.parseDouble(tvLaborPrice.getText().toString()));
-        price.getPartsPrice().setAmount(Double.parseDouble(tvPartsPrice.getText().toString()));
-        price.getPartsPrice().setDescription(tvPartsDescription.getText().toString());
+        price.getServicePrice().setAmount(Double.parseDouble(etLaborPrice.getText().toString()));
+        price.getPartsPrice().setAmount(Double.parseDouble(etPartsPrice.getText().toString()));
+        price.getPartsPrice().setDescription(etPartsDescription.getText().toString());
 
         jobClient.updateJobPrice(jobId.toString(), price, new Callback<Job>() {
             @Override
