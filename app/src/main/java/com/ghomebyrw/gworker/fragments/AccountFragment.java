@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,8 @@ public class AccountFragment extends Fragment {
     @Bind(R.id.tvLastName) TextView tvLastName;
     @Bind(R.id.tvPhoneNumber) TextView tvPhoneNumber;
     @Bind(R.id.tvEmail) TextView tvEmail;
+    @Bind(R.id.rbRating) RatingBar rbRating;
+    @Bind(R.id.tvRating) TextView tvRating;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,12 @@ public class AccountFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         fetchFieldWorker();
+
+        // TODO: fetch average rating from api
+        float ratingValue = 3.5f;
+        rbRating.setRating(ratingValue);
+        tvRating.setText(String.valueOf(ratingValue));
+
         return view;
     }
 
