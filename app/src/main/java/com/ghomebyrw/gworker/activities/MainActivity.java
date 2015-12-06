@@ -14,7 +14,6 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TAG = MainActivity.class.getName();
     public static String POSITION = "POSITION";
 
     @Bind(R.id.viewpager) ViewPager viewPager;
@@ -32,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setCurrentItem(MainFragmentPagerAdapter.JOBS_TAB);
 
         tabLayout.setupWithViewPager(viewPager);
+
     }
 
     private void hideActionBar() {
@@ -52,4 +52,5 @@ public class MainActivity extends AppCompatActivity {
         super.onRestoreInstanceState(savedInstanceState);
         viewPager.setCurrentItem(savedInstanceState.getInt(POSITION));
     }
+
 }

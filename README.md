@@ -3,7 +3,7 @@
 Groupon Home & Auto is currently building a new platform for consumers to directly book house cleaning appointments with Groupon.
 **GWorker** is the Android app that allows fieldworkers to view their daily schedule and update price onsite.
 
-Time spent: **35** hours spent in total
+Time spent: **38** hours spent in total
 
 ## User Stories
 
@@ -21,7 +21,7 @@ The following functionality will be completed:
 * [X] Fieldworker can navigate among jobs, account, and notifications using sliding tabs
 
 The following **additional** features might be implemented if time allows:
-* [ ] Fieldworker location is displayed in the map
+* [X] Fieldworker location is displayed in the map
 * [ ] Driving time is calculated and displayed next to job location
 * [X] Fieldworker can update job price after checking details onsite
 * [ ] Fieldworker receives notifications if a new job is assigned to him/her

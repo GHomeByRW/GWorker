@@ -17,6 +17,7 @@ import com.ghomebyrw.gworker.activities.PriceUpdateActivity;
 import com.ghomebyrw.gworker.clients.GoogleStaticMapAPI;
 import com.ghomebyrw.gworker.models.Job;
 import com.ghomebyrw.gworker.models.JobStatus;
+import com.ghomebyrw.gworker.models.Location;
 import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
@@ -29,6 +30,8 @@ import butterknife.ButterKnife;
  * Created by wewang on 11/19/15.
  */
 public class JobsAdapter extends ArrayAdapter<Job> {
+    private Location fieldworkerLocation;
+
     static class ViewHolder {
         @Bind(R.id.tvStartTimeHour) TextView tvStartTimeHour;
         @Bind(R.id.tvStartTimeAMPM) TextView tvStartTimeAmPm;
@@ -122,9 +125,13 @@ public class JobsAdapter extends ArrayAdapter<Job> {
         viewHolder.tvContact.setText(getContext().getString(R.string.sample_contact_label)
                 .replace("{:name}", job.getFieldworker()));
 
-        Picasso.with(getContext()).load(GoogleStaticMapAPI.getStaticMapURL(job.getLocation())).into(viewHolder.ivMap);
+        Picasso.with(getContext()).load(GoogleStaticMapAPI.getStaticMapURL(job.getLocation(), fieldworkerLocation)).into(viewHolder.ivMap);
 
         return convertView;
+    }
+
+    public void setFieldworkerLocation(Location fieldworkerLocation) {
+        this.fieldworkerLocation = fieldworkerLocation;
     }
 
 }
