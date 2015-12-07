@@ -1,5 +1,6 @@
 package com.ghomebyrw.gworker.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,11 +30,13 @@ import retrofit.Retrofit;
 public class AccountFragment extends Fragment {
 
     public static final String TAG = AccountFragment.class.getName();
+    private static final int EDIT_PROFILE_REQUEST_CODE = 1;
 
     //TODO: determine id from authenticated user
     String fieldWorkerId = "fdf0399e-19cc-4d3a-b027-727fc0522050";
 
     private FieldWorker fieldWorker;
+    @Bind(R.id.accountFragmentLayout) ViewGroup layout;
     @Bind(R.id.tvFirstName) TextView tvFirstName;
     @Bind(R.id.tvLastName) TextView tvLastName;
     @Bind(R.id.tvPhoneNumber) TextView tvPhoneNumber;
@@ -72,7 +75,21 @@ public class AccountFragment extends Fragment {
     void editProfile() {
         Intent intent = new Intent(getContext(), EditProfileActivity.class);
         intent.putExtra("fieldWorker", fieldWorker);
-        startActivity(intent);
+        startActivityForResult(intent, EDIT_PROFILE_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == EDIT_PROFILE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            //TODO: call api to update field worker on back end
+            fieldWorker = (FieldWorker) data.getParcelableExtra("fieldWorker");
+            bindFieldWorker(fieldWorker);
+
+            // Force layout refresh. Without this, the right alignment of field values
+            // isn't properly refreshed if the new value is shorter than the old one.
+            // Is there a better way to handle this?
+            layout.invalidate();
+        }
     }
 
     private void fetchFieldWorker() {
