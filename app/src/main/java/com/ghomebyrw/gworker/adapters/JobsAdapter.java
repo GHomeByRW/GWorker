@@ -123,7 +123,7 @@ public class JobsAdapter extends ArrayAdapter<Job> {
         viewHolder.tvPrice.setText(getContext().getString(R.string.price_label)
                 .replace("{:formattedAmount}", job.getAcceptedPrice().getFormattedAmount()));
         viewHolder.tvContact.setText(getContext().getString(R.string.sample_contact_label)
-                .replace("{:name}", job.getFieldworker()));
+                .replace("{:name}", getContext().getString(R.string.customer)));
 
         Picasso.with(getContext()).load(GoogleStaticMapAPI.getStaticMapURL(job.getLocation(), fieldworkerLocation)).into(viewHolder.ivMap);
 

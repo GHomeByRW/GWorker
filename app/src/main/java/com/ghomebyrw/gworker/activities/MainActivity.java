@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(new MainFragmentPagerAdapter(getSupportFragmentManager(), MainActivity.this));
         viewPager.setCurrentItem(MainFragmentPagerAdapter.JOBS_TAB);
-
         tabLayout.setupWithViewPager(viewPager);
 
     }
