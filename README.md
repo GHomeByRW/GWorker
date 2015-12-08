@@ -37,8 +37,9 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Open-source libraries used
 
-- [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
+- [Retrofit](http://square.github.io/retrofit/) - A type-safe HTTP client for Android and Java
 - [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
+- [Butter Knife](http://jakewharton.github.io/butterknife/) - Field and method binding for Android views
 
 ## License
 
