@@ -46,4 +46,5 @@
     <string name="price_update_failure">Failed to update price, please try again later.</string>
     <string name="rating_denominator">/5.0</string>
     <string name="failure_location_sensor">Failed to fetch current location, please make sure you enable location access for GWorer in settings</string>
+    <string name="add_profile_image">Add Profile Image</string>
 </resources>
