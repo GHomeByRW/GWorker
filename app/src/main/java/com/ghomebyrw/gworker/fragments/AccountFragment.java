@@ -2,7 +2,10 @@ package com.ghomebyrw.gworker.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -19,6 +22,7 @@ import com.ghomebyrw.gworker.activities.EditProfileActivity;
 import com.ghomebyrw.gworker.clients.JobClient;
 import com.ghomebyrw.gworker.models.FieldWorker;
 
+import java.io.File;
 import java.io.IOException;
 
 import butterknife.Bind;
@@ -30,8 +34,10 @@ import retrofit.Retrofit;
 
 public class AccountFragment extends Fragment {
 
-    public static final String TAG = AccountFragment.class.getName();
-    private static final int EDIT_PROFILE_REQUEST_CODE = 1;
+    static final String TAG = AccountFragment.class.getName();
+    static final int EDIT_PROFILE_REQUEST_CODE = 1;
+    static final int CAPTURE_IMAGE_REQUEST_CODE = 2;
+    static final String PROFILE_IMAGE_FILE = "profile_image.jpg";
 
     //TODO: determine id from authenticated user
     String fieldWorkerId = "fdf0399e-19cc-4d3a-b027-727fc0522050";
@@ -69,7 +75,7 @@ public class AccountFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         // TODO: set profile image fragment depending on presence of image fetched from the api
-        insertImageProfileFragment(new AddProfileImageFragment());
+        insertProfileImageFragment(new AddProfileImageFragment());
     }
 
     @Override
@@ -85,6 +91,17 @@ public class AccountFragment extends Fragment {
         startActivityForResult(intent, EDIT_PROFILE_REQUEST_CODE);
     }
 
+    @OnClick(R.id.fabAddProfileImage)
+    void launchCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, getPhotoFileUri(PROFILE_IMAGE_FILE));
+
+        if (intent.resolveActivity(getContext().getPackageManager()) != null) {
+            startActivityForResult(intent, CAPTURE_IMAGE_REQUEST_CODE);
+        }
+    }
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == EDIT_PROFILE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
@@ -96,6 +113,11 @@ public class AccountFragment extends Fragment {
             // isn't properly refreshed if the new value is shorter than the old one.
             // Is there a better way to handle this?
             layout.invalidate();
+        } else if (requestCode == CAPTURE_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            Uri takenPhotoUri = getPhotoFileUri(PROFILE_IMAGE_FILE);
+            Fragment fragment = ProfileImageFragment.newInstance(takenPhotoUri);
+            insertProfileImageFragment(fragment);
+            //TODO: In the future, the profile image should be uploaded to the back end
         }
     }
 
@@ -137,8 +159,24 @@ public class AccountFragment extends Fragment {
         tvEmail.setText(fieldWorker.getEmail());
     }
 
-    private void insertImageProfileFragment(Fragment fragment) {
+    private void insertProfileImageFragment(Fragment fragment) {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.replace(R.id.profileImageFragmentContainer, fragment).commit();
+        transaction.replace(R.id.profileImageFragmentContainer, fragment).commitAllowingStateLoss();
+    }
+
+    private Uri getPhotoFileUri(String fileName) {
+        if (isExternalStorageAvailable()) {
+            File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), TAG);
+            if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()) {
+                Log.d(TAG, "failed to create directory");
+            }
+            return Uri.fromFile(new File(mediaStorageDir.getPath() + File.separator + fileName));
+        }
+        return null;
+    }
+
+    private boolean isExternalStorageAvailable() {
+        String state = Environment.getExternalStorageState();
+        return state.equals(Environment.MEDIA_MOUNTED);
     }
 }
