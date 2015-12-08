@@ -1,50 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.ghomebyrw.gworker.fragments.AccountFragment"
     android:id="@+id/accountFragmentLayout">
 
-    <RatingBar
-        android:id="@+id/rbRating"
-        style="@style/CustomRatingBar"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:paddingTop="3dp"
-        android:isIndicator="true"
-        android:stepSize="0.5"
-        android:max="5"/>
+        android:id="@+id/accountHeaderLayout"
+        android:layout_alignParentTop="true">
 
-    <TextView
-        android:id="@+id/tvRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/rbRating"
-        android:layout_toEndOf="@+id/rbRating"
-        android:layout_marginLeft="8dp"
-        android:textColor="@color/theme_primary"
-        android:textSize="18sp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tvRatingDenominator"
-        android:layout_width="wrap_content"
+            <FrameLayout
+                android:id="@+id/profileImageFragmentContainer"
+                android:layout_width="match_parent"
+                android:layout_height="170dp">
+            </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:id="@+id/separator0"
+                android:background="@color/border"
+                android:layout_below="@id/profileImageFragmentContainer" />
+
+            <RatingBar
+                android:id="@+id/rbRating"
+                style="@style/CustomRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/separator0"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="16dp"
+                android:paddingTop="16dp"
+                android:isIndicator="true"
+                android:stepSize="0.5"
+                android:max="5"/>
+
+            <TextView
+                android:id="@+id/tvRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/separator0"
+                android:layout_toRightOf="@+id/rbRating"
+                android:layout_toEndOf="@+id/rbRating"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:paddingTop="13dp"
+                android:textColor="@color/theme_primary"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/tvRatingDenominator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/separator0"
+                android:layout_toRightOf="@+id/tvRating"
+                android:layout_toEndOf="@+id/tvRating"
+                android:layout_alignBaseline="@id/tvRating"
+                android:textColor="@color/border"
+                android:textSize="14sp"
+                android:text="@string/rating_denominator" />
+
+        </RelativeLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAddProfileImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/camera"
+            app:fabSize="normal"
+            android:layout_gravity="top|right"
+            android:layout_marginTop="142dp"
+            android:layout_marginRight="16dp"
+            app:backgroundTint="@android:color/white" />
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:id="@+id/separator1"
+        android:background="@color/border"
+        android:layout_below="@id/accountHeaderLayout" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/tvRating"
-        android:layout_toEndOf="@+id/tvRating"
-        android:layout_alignBaseline="@id/tvRating"
-        android:textColor="@color/border"
-        android:textSize="14sp"
-        android:text="@string/rating_denominator" />
+        android:layout_below="@id/separator1"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvEditAction"
-        android:layout_below="@+id/rbRating"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:text="@string/edit_information"
@@ -76,7 +135,7 @@
     <View
         android:layout_width="fill_parent"
         android:layout_height="0.2dp"
-        android:id="@+id/separator1"
+        android:id="@+id/separator2"
         android:visibility="visible"
         android:background="@color/border"
         android:layout_below="@+id/tvFirstName"
@@ -87,7 +146,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvLastNameLabel"
-        android:layout_below="@+id/separator1"
+        android:layout_below="@+id/separator2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:text="@string/last_name"
@@ -98,36 +157,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvLastName"
-        android:layout_below="@+id/separator1"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textSize="16sp"/>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="0.2dp"
-        android:id="@+id/separator2"
-        android:visibility="visible"
-        android:background="@color/border"
-        android:layout_below="@+id/tvLastName"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvPhoneNumberLabel"
-        android:layout_below="@+id/separator2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="@string/mobile_number"
-        android:textColor="@color/normal_text"
-        android:textSize="16sp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvPhoneNumber"
         android:layout_below="@+id/separator2"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -139,6 +168,36 @@
         android:id="@+id/separator3"
         android:visibility="visible"
         android:background="@color/border"
+        android:layout_below="@+id/tvLastName"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPhoneNumberLabel"
+        android:layout_below="@+id/separator3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="@string/mobile_number"
+        android:textColor="@color/normal_text"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvPhoneNumber"
+        android:layout_below="@+id/separator3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="16sp"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.2dp"
+        android:id="@+id/separator4"
+        android:visibility="visible"
+        android:background="@color/border"
         android:layout_below="@+id/tvPhoneNumber"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp" />
@@ -147,7 +206,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvEmailLabel"
-        android:layout_below="@+id/separator3"
+        android:layout_below="@+id/separator4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:text="@string/email"
@@ -158,8 +217,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvEmail"
-        android:layout_below="@+id/separator3"
+        android:layout_below="@+id/separator4"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:textSize="16sp"/>
+
+    </RelativeLayout>
 </RelativeLayout>

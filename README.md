@@ -3,7 +3,7 @@
 Groupon Home & Auto is currently building a new platform for consumers to directly book house cleaning appointments with Groupon.
 **GWorker** is the Android app that allows fieldworkers to view their daily schedule and update price onsite.
 
-Time spent: **40** hours spent in total
+Time spent: **47** hours spent in total
 
 ## User Stories
 
@@ -17,7 +17,7 @@ The following functionality will be completed:
 * [X] Fieldworker can **view and update their profile**
   * [X] Fieldworker can view their star ratings
   * [X] Fieldworker can view and edit name, phone number, email
-  * [ ] Fieldworker can upload a profile picture
+  * [X] Fieldworker can use the camera to take a profile picture
 * [X] Fieldworker can navigate among jobs, account, and notifications using sliding tabs
 
 The following **additional** features might be implemented if time allows:
@@ -37,8 +37,9 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Open-source libraries used
 
-- [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
+- [Retrofit](http://square.github.io/retrofit/) - A type-safe HTTP client for Android and Java
 - [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
+- [Butter Knife](http://jakewharton.github.io/butterknife/) - Field and method binding for Android views
 
 ## License
 
